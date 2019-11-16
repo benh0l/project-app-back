@@ -1,5 +1,6 @@
 import { Exclude, Expose, Type } from 'class-transformer';
 import { ApiModelProperty } from '@nestjs/swagger';
+import { GroupEntity } from '../../group/entities/group.entity';
 
 @Exclude()
 export class UserEntity {
@@ -34,6 +35,11 @@ export class UserEntity {
   @Type(() => String)
   password: string;
    */
+
+  @ApiModelProperty({ description: 'List of groups', example: '{}'})
+  @Expose()
+  @Type(() => GroupEntity)
+  students: UserEntity[];
 
   @ApiModelProperty({ description: 'Role', example: 'ADMIN'})
   @Expose()

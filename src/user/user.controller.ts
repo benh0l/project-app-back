@@ -1,8 +1,9 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Get, Post, Param } from '@nestjs/common';
 import { Observable } from 'rxjs';
 import { UserService } from './user.service';
 import { UserEntity } from './entities/user.entity';
 import { CreateUserDto } from './dto/create-user.dto';
+import { HandlerParams } from './validators/handler-params';
 import {
   ApiBadRequestResponse,
   ApiConflictResponse,
@@ -26,6 +27,16 @@ export class UserController {
   @Get()
   findAll(): string {
     return 'This action returns all users';
+  }
+
+  @ApiOkResponse({ description: 'Returns the user for the given "id"', type: UserEntity })
+  @ApiNotFoundResponse({ description: 'User with the given "id" doesn\'t exist in the database' })
+  @ApiBadRequestResponse({ description: 'Parameter provided is not good' })
+  @ApiUnprocessableEntityResponse({ description: 'The request can\'t be performed in the database' })
+  @ApiImplicitParam({ name: 'id', description: 'Unique identifier of the user in the database', type: String })
+  @Get(':id')
+  findOne(@Param() params: HandlerParams): Observable<UserEntity> {
+    return this._userService.findOne(params.id);
   }
 
   @ApiCreatedResponse({ description: 'The user has been successfully created', type: UserEntity })

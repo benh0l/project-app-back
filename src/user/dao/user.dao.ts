@@ -12,6 +12,13 @@ export class UserDao {
   constructor(@InjectModel('User') private readonly _userModel: Model<User>) {
   }
 
+  findById(id: string): Observable<User | void> {
+    return from(this._userModel.findById(id))
+      .pipe(
+        map((doc: MongooseDocument) => !!doc ? doc.toJSON() : undefined),
+      );
+  }
+
   create(user: CreateUserDto): Observable<User> {
     return from(this._userModel.create(user))
       .pipe(

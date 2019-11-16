@@ -1,4 +1,4 @@
-import { Injectable, ConflictException, UnprocessableEntityException } from '@nestjs/common';
+import { Injectable, ConflictException, UnprocessableEntityException, NotFoundException } from '@nestjs/common';
 import { Observable, of, throwError } from 'rxjs';
 import { catchError, flatMap, map } from 'rxjs/operators';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -10,6 +10,18 @@ import { UserDao } from './dao/user.dao';
 export class UserService{
 
   constructor(private readonly _userDao: UserDao) {
+  }
+
+  findOne(id: string): Observable<UserEntity> {
+    return this._userDao.findById(id)
+      .pipe(
+        catchError(e => throwError(new UnprocessableEntityException(e.message))),
+        flatMap(_ =>
+          !!_ ?
+            of(new UserEntity(_)) :
+            throwError(new NotFoundException(`User with id '${id}' not found`)),
+        ),
+      );
   }
 
   create(user: CreateUserDto): Observable<UserEntity> {

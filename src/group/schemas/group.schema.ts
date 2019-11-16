@@ -21,8 +21,12 @@ export const GroupSchema = new mongoose.Schema({
     {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'User',
-    }
+    },
   ],
+  responsibleId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+  },
 }, {
   toJSON: { virtuals: true },
   versionKey: false,

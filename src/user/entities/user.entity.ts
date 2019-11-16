@@ -18,15 +18,22 @@ export class UserEntity {
   @Type(() => String)
   lastname: string;
 
+  @ApiModelProperty({ description: 'Email', example: 'Mclaughlin.Cochran@undefined.com' })
+  @Expose()
+  @Type(() => String)
+  email: string;
+
   @ApiModelProperty({ description: 'Login', example: 'Bilboq77'})
   @Expose()
   @Type(() => String)
   login: string;
 
+  /*
   @ApiModelProperty({ description: 'Password', example: 'iLoveBanana1997'})
   @Expose()
   @Type(() => String)
   password: string;
+   */
 
   @ApiModelProperty({ description: 'Role', example: 'ADMIN'})
   @Expose()

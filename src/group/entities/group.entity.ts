@@ -25,17 +25,15 @@ export class GroupEntity {
   @Type(() => Number)
   endDate: number;
 
-  /*
   @ApiModelProperty({ description: 'List of students', example: '{}'})
   @Expose()
-  @Type(() => UserEntity)
-  students: UserEntity[];
+  @Type(() => String)
+  students: string[];
 
   @ApiModelProperty({ description: 'Responsible' })
   @Expose()
-  @Type(() => UserEntity)
-  responsible: UserEntity;
-*/
+  @Type(() => String)
+  responsibleId: string;
 
   constructor(partial: Partial<GroupEntity>){
     Object.assign(this, partial);

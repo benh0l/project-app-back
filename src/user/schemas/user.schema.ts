@@ -1,6 +1,6 @@
 import * as mongoose from 'mongoose';
 
-export const GroupSchema = new mongoose.Schema({
+export const UserSchema = new mongoose.Schema({
   firstname: {
     type: String,
     required: true,

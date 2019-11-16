@@ -1,4 +1,4 @@
-import { IsBoolean, IsNotEmpty, IsOptional, IsNumber, IsString } from 'class-validator';
+import { IsBoolean, IsNotEmpty, IsOptional, IsNumber, IsString, ValidateNested } from 'class-validator';
 import { Type } from 'class-transformer';
 import { ApiModelPropertyOptional } from '@nestjs/swagger';
 
@@ -25,4 +25,16 @@ export class UpdateTestDto {
   @IsOptional()
   @IsBoolean()
   shown?: boolean;
+
+  @ApiModelPropertyOptional({ description: 'Lesson id', example: ''})
+  @IsOptional()
+  @ValidateNested()
+  @Type(() => String)
+  lessonId?: string;
+
+  @ApiModelPropertyOptional({ description: 'List of grades'})
+  @IsOptional()
+  @ValidateNested({each: true})
+  @Type(() => String)
+  gradesId?: string[];
 }

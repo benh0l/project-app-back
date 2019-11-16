@@ -19,6 +19,14 @@ export const TestSchema = new mongoose.Schema({
     type: Boolean,
     required: true,
   },
+  lessonId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Lesson',
+  },
+  gradesId: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Grade',
+  }],
 }, {
   toJSON: { virtuals: true },
   versionKey: false,

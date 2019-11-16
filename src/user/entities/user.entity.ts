@@ -39,7 +39,7 @@ export class UserEntity {
   @ApiModelProperty({ description: 'List of groups', example: '{}'})
   @Expose()
   @Type(() => GroupEntity)
-  students: UserEntity[];
+  groups: GroupEntity[];
 
   @ApiModelProperty({ description: 'Role', example: 'ADMIN'})
   @Expose()

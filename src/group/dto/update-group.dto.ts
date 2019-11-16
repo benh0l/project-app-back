@@ -3,7 +3,7 @@ import { MinLength, MaxLength, IsNumberString, IsNotEmpty, IsString, ValidateNes
 import { Type } from 'class-transformer';
 import { ApiModelProperty, ApiModelPropertyOptional } from '@nestjs/swagger';
 
-export class CreateGroupDto {
+export class UpdateGroupDto {
 
   @ApiModelProperty({ description: 'Name', example: 'Master 2 2019' })
   @IsString()
@@ -21,16 +21,17 @@ export class CreateGroupDto {
   @IsNumberString()
   @IsNotEmpty()
   endDate: number;
-/*
-  @ApiModelProperty({ description: 'List of students', example: '{}'})
-  // TODO: Il manque peut être une vérification ici
-  @ValidateNested({each: true})
-  @Type(() => UserEntity)
-  students: UserEntity[];
 
-  @ApiModelProperty({ description: 'Responsible'})
-  @ValidateNested()
-  @Type(() => UserEntity)
-  responsible: UserEntity;
- */
+  /*
+    @ApiModelProperty({ description: 'List of students', example: '{}'})
+    // TODO: Il manque peut être une vérification ici
+    @ValidateNested({each: true})
+    @Type(() => UserEntity)
+    students: UserEntity[];
+
+    @ApiModelProperty({ description: 'Responsible'})
+    @ValidateNested()
+    @Type(() => UserEntity)
+    responsible: UserEntity;
+   */
 }

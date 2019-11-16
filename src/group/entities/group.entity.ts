@@ -1,6 +1,7 @@
 import { Exclude, Expose, Type } from 'class-transformer';
 import { ApiModelProperty } from '@nestjs/swagger';
 import { UserEntity } from '../../user/entities/user.entity';
+import { User } from '../../user/interfaces/user.interface';
 
 @Exclude()
 export class GroupEntity {
@@ -14,16 +15,17 @@ export class GroupEntity {
   @Type(() => String)
   name: string;
 
-  @ApiModelProperty({ description: 'Start date', example: '28-02-2019' })
+  @ApiModelProperty({ description: 'Start date', example: '101343600000' })
   @Expose()
-  @Type(() => Date)
-  startDate: Date;
+  @Type(() => Number)
+  startDate: number;
 
-  @ApiModelProperty({ description: 'End date', example: '05-04-2019' })
+  @ApiModelProperty({ description: 'End date', example: '101343600000' })
   @Expose()
-  @Type(() => Date)
-  endDate: Date;
+  @Type(() => Number)
+  endDate: number;
 
+  /*
   @ApiModelProperty({ description: 'List of students', example: '{}'})
   @Expose()
   @Type(() => UserEntity)
@@ -33,7 +35,7 @@ export class GroupEntity {
   @Expose()
   @Type(() => UserEntity)
   responsible: UserEntity;
-
+*/
 
   constructor(partial: Partial<GroupEntity>){
     Object.assign(this, partial);

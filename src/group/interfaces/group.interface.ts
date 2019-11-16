@@ -1,12 +1,15 @@
 import { Document } from 'mongoose';
 import { User } from '../../user/interfaces/user.interface';
+import { UserEntity } from '../../user/entities/user.entity';
 
 export interface Group extends Document {
   id: string;
   name: string;
-  startDate: string;
-  endDate: string;
+  startDate: number;
+  endDate: number;
+  /*
   students: User[];
   responsible: User;
+  */
 }
 

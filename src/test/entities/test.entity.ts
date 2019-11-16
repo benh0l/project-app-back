@@ -13,12 +13,12 @@ export class TestEntity {
   @Type(() => String)
   title: string;
 
-  @ApiModelProperty({ description: 'Coefficient of the test', example: '3'})
+  @ApiModelProperty({ description: 'Coefficient of the test', example: 3})
   @Expose()
   @Type(() => Number)
   coefficient: number;
 
-  @ApiModelProperty({ description: 'Is the test visible', example: 'true'})
+  @ApiModelProperty({ description: 'Is the test visible', example: true})
   @Expose()
   @Type(() => Boolean)
   shown: boolean;

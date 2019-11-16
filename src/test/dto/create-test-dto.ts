@@ -14,13 +14,13 @@ export class CreateTestDto {
   @IsNotEmpty()
   date: string;
 
-  @ApiModelProperty({ description: 'Coefficient of the test', example: '3'})
+  @ApiModelProperty({ description: 'Coefficient of the test', example: 3})
   @IsNumber()
   @IsNotEmpty()
   coefficient: number;
 
-  @ApiModelProperty({ description: 'Is the test visible', example: 'true'})
+  @ApiModelProperty({ description: 'Is the test visible', example: true})
   @IsBoolean()
   @IsNotEmpty()
-  students: boolean;
+  shown: boolean;
 }

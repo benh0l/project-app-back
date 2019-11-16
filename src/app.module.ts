@@ -7,7 +7,7 @@ import { UserModule } from './user/user.module';
 
 @Module({
   imports: [MongooseModule.forRoot('mongodb://localhost/nest'), UserModule],
-  controllers: [AppController, UserController],
+  controllers: [AppController],
   providers: [AppService],
 })
 export class AppModule {}

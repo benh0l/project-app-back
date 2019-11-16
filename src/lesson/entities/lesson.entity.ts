@@ -4,7 +4,7 @@ import { UserEntity } from '../../user/entities/user.entity';
 import { User } from '../../user/interfaces/user.interface';
 
 @Exclude()
-export class GroupEntity {
+export class LessonEntity {
   @ApiModelProperty({ description: 'Unique identifier in the database', example: '5763cd4dc378a38ecd387737' })
   @Expose()
   @Type(() => String)
@@ -15,32 +15,22 @@ export class GroupEntity {
   @Type(() => String)
   name: string;
 
-  @ApiModelProperty({ description: 'Start date', example: '101343600000' })
-  @Expose()
-  @Type(() => Number)
-  startDate: number;
-
-  @ApiModelProperty({ description: 'End date', example: '101343600000' })
-  @Expose()
-  @Type(() => Number)
-  endDate: number;
-
-  @ApiModelProperty({ description: 'List of students', example: '[]'})
+  @ApiModelProperty({ description: 'List of tests', example: '[]'})
   @Expose()
   @Type(() => String)
-  studentsId: string[];
+  testsId: string[];
 
-  @ApiModelProperty({ description: 'Responsible' })
+  @ApiModelProperty({ description: 'Teacher' })
   @Expose()
   @Type(() => String)
-  responsibleId: string;
+  teacherId: string;
 
-  @ApiModelProperty({ description: 'List of lessons', example: '[]'})
+  @ApiModelProperty({ description: 'Group' })
   @Expose()
   @Type(() => String)
-  lessonsId: string[];
+  groupId: string;
 
-  constructor(partial: Partial<GroupEntity>){
+  constructor(partial: Partial<LessonEntity>){
     Object.assign(this, partial);
   }
 }

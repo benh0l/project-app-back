@@ -3,7 +3,7 @@ import { Min, Max, IsDate, IsNotEmpty, IsString, ValidateNested } from 'class-va
 import { Type } from 'class-transformer';
 import { ApiModelProperty, ApiModelPropertyOptional } from '@nestjs/swagger';
 
-export class CreateYearGroupDto {
+export class CreateGroupDto {
 
   @ApiModelProperty({ description: 'Name', example: 'Master 2 2019' })
   @IsString()

@@ -2,7 +2,7 @@ import { Exclude, Expose, Type } from 'class-transformer';
 import { ApiModelProperty } from '@nestjs/swagger';
 
 @Exclude()
-export class YearGroupEntity {
+export class GroupEntity {
   @ApiModelProperty({ description: 'Unique identifier in the database', example: '5763cd4dc378a38ecd387737' })
   @Expose()
   @Type(() => String)
@@ -28,7 +28,7 @@ export class YearGroupEntity {
   @Type(() => String)
   students: string;
 
-  constructor(partial: Partial<YearGroupEntity>) {
+  constructor(partial: Partial<GroupEntity>){
     Object.assign(this, partial);
   }
 }

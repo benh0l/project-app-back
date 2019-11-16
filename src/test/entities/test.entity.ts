@@ -13,11 +13,6 @@ export class TestEntity {
   @Type(() => String)
   title: string;
 
-  @ApiModelProperty({ description: 'Date of the test', example: '12-02-2019' })
-  @Expose()
-  @Type(() => Date)
-  date: Date;
-
   @ApiModelProperty({ description: 'Coefficient of the test', example: '3'})
   @Expose()
   @Type(() => Number)

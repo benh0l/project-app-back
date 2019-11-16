@@ -9,9 +9,10 @@ export const TestSchema = new mongoose.Schema({
     trim: true,
   },
   date: {
-    type: Date,
+    type: Number,
     required: true,
-  },
+  }
+  ,
   coefficient: {
     type: Number,
     required: true,

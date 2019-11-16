@@ -3,7 +3,7 @@ import { Document } from 'mongoose';
 export interface Test extends Document {
   id: string;
   title: string;
-  date: Date;
+  date: number;
   coefficient: number;
   shown: boolean;
 }

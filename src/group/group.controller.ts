@@ -19,6 +19,6 @@ export class GroupController {
   @ApiNoContentResponse({ description: 'No person exists in database' })
   @Get()
   findAll(): Observable<GroupEntity[] | void> {
-    return null //this._groupService.findAll();
+    return null; //this._groupService.findAll();
   }
 }

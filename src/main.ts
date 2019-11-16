@@ -1,10 +1,13 @@
 import { NestFactory } from '@nestjs/core';
+import * as Config from 'config';
+import { AppConfig } from './interfaces/app-config.interface';
+import { SwaggerConfig } from './interfaces/swagger-config.interface';
 import { AppModule } from './app.module';
 import { FastifyAdapter, NestFastifyApplication } from '@nestjs/platform-fastify';
 import { Logger, ValidationPipe } from '@nestjs/common';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 
-async function bootstrap() {
+async function bootstrap(config: AppConfig,  swaggerConfig: SwaggerConfig) {
   const app = await NestFactory.create<NestFastifyApplication>(AppModule, new FastifyAdapter({ logger: true}) );
 
   app.useGlobalPipes(
@@ -15,14 +18,17 @@ async function bootstrap() {
   );
 
   const options = new DocumentBuilder()
-    .setTitle('MyApp API')
-    .setDescription('API for managing classes and rating students')
-    .setVersion('1.0')
-    .addTag('school')
+    .setTitle(swaggerConfig.title)
+    .setDescription(swaggerConfig.description)
+    .setVersion(swaggerConfig.version)
+    .addTag(swaggerConfig.tag)
     .build();
+
   const document = SwaggerModule.createDocument(app, options);
-  SwaggerModule.setup('api', app, document);
-  await app.listen(4000);
-  Logger.log( 'Application served at http://localhost:4000', 'bootstrap' );
+  // setup swagger module
+  SwaggerModule.setup(swaggerConfig.path, app, document);
+  // launch server
+  await app.listen(config.port, config.host);
+  Logger.log(`Application served at http://${config.host}:${config.port}`, 'bootstrap');
 }
-bootstrap();
+bootstrap(Config.get<AppConfig>('server'), Config.get<SwaggerConfig>('swagger'));

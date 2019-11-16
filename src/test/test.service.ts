@@ -4,6 +4,7 @@ import { TestDao } from './dao/test.dao';
 import { TestEntity } from './entities/test.entity';
 import { catchError, flatMap, map } from 'rxjs/operators';
 import { Observable, of, throwError } from 'rxjs';
+import { UpdateTestDto } from './dto/update-test-dto';
 
 @Injectable()
 export class TestService {
@@ -55,8 +56,39 @@ export class TestService {
       );
   }
 
+  update(id: string, test: UpdateTestDto): Observable<TestEntity> {
+    return this._testDao.findByIdAndUpdate(id, test)
+      .pipe(
+        catchError(e =>
+          e.code = 11000 ?
+            throwError(
+              new ConflictException(`Test with title '${test.title}' already exists`),
+            ) :
+            throwError(new UnprocessableEntityException(e.message)),
+        ),
+        flatMap(_ =>
+          !!_ ?
+            of(new TestEntity((_))) :
+            throwError(new NotFoundException(`Test with id '${id}' not found`)),
+        ),
+      );
+  }
+
+  delete(id: string): Observable<void> {
+    return this._testDao.findByIdAndRemove(id)
+      .pipe(
+        catchError(e => throwError(new NotFoundException(e.message))),
+        flatMap(_ =>
+          !!_ ?
+            of(undefined) :
+            throwError(new NotFoundException(`Test with id '${id}' not found`)),
+        ),
+      );
+  }
+
   private _parseDate(date: string): number {
     const dates = date.split('/');
     return (new Date(dates[ 2 ] + '/' + dates[ 1 ] + '/' + dates[ 0 ]).getTime());
   }
+
 }

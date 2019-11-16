@@ -6,6 +6,7 @@ import { from, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { MongooseDocument } from 'mongoose';
 import { CreateTestDto } from '../dto/create-test-dto';
+import { UpdateTestDto } from '../dto/update-test-dto';
 
 @Injectable()
 export class TestDao {
@@ -33,4 +34,19 @@ export class TestDao {
         map((doc: MongooseDocument) => doc.toJSON()),
       );
   }
+
+  findByIdAndUpdate(id: string, test: UpdateTestDto): Observable<Test | void> {
+    return from(this._testModel.findByIdAndUpdate(id, test, { new: true }))
+      .pipe(
+        map((doc: MongooseDocument) => !!doc ? doc.toJSON() : undefined),
+      );
+  }
+
+  findByIdAndRemove(id: string): Observable<Test | void> {
+    return from(this._testModel.findByIdAndRemove(id))
+      .pipe(
+        map((doc: MongooseDocument) => !!doc ? doc.toJSON() : undefined),
+      );
+  }
+
 }

@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
 import { Observable } from 'rxjs';
 import {
   ApiBadRequestResponse,
@@ -10,13 +10,15 @@ import {
   ApiNotFoundResponse,
   ApiOkResponse,
   ApiUseTags,
+  ApiUnprocessableEntityResponse,
 } from '@nestjs/swagger';
 import { TestEntity } from './entities/test.entity';
 import { TestService } from './test.service';
 import { CreateTestDto } from './dto/create-test-dto';
 import { TestParams } from './validators/test-params';
+import { UpdateTestDto } from './dto/update-test-dto';
 
-@ApiUseTags('test')
+@ApiUseTags('Test')
 @Controller('test')
 export class TestController {
   constructor(private readonly _testService: TestService) {
@@ -46,6 +48,27 @@ export class TestController {
   @Post()
   create(@Body() createTestDto: CreateTestDto): Observable<TestEntity> {
     return this._testService.create(createTestDto);
+  }
+
+  @ApiOkResponse({ description: 'The test has been successfully updated', type: TestEntity })
+  @ApiNotFoundResponse({ description: 'Test with the given "id" doesn\'t exist in the database' })
+  @ApiBadRequestResponse({ description: 'Parameter and/or payload provided are not good' })
+  @ApiUnprocessableEntityResponse({ description: 'The request can\'t be performed in the database' })
+  @ApiImplicitParam({ name: 'id', description: 'Unique identifier of the test in the database', type: String })
+  @ApiImplicitBody({ name: 'UpdateTestDto', description: 'Payload to update a test', type: UpdateTestDto })
+  @Put(':id')
+  update(@Param() params: TestParams, @Body() updatePersonDto: UpdateTestDto): Observable<TestEntity> {
+    return this._testService.update(params.id, updatePersonDto);
+  }
+
+  @ApiNoContentResponse({ description: 'The test has been successfully deleted' })
+  @ApiNotFoundResponse({ description: 'Test with the given "id" doesn\'t exist in the database' })
+  @ApiBadRequestResponse({ description: 'Parameter provided is not good' })
+  @ApiUnprocessableEntityResponse({ description: 'The request can\'t be performed in the database' })
+  @ApiImplicitParam({ name: 'id', description: 'Unique identifier of the test in the database', type: String })
+  @Delete(':id')
+  delete(@Param() params: TestParams): Observable<void> {
+    return this._testService.delete(params.id);
   }
 
 }

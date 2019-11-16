@@ -13,25 +13,15 @@ export class GroupEntity {
   @Type(() => String)
   name: string;
 
-  @ApiModelProperty({ description: 'Lastname', example: 'Boquet' })
+  @ApiModelProperty({ description: 'StartDate in timestamp format', example: '101343600000' })
   @Expose()
-  @Type(() => String)
-  lastname: string;
+  @Type(() => Number)
+  startDate: string;
 
-  @ApiModelProperty({ description: 'Login', example: 'Bilboq77'})
+  @ApiModelProperty({ description: 'EndDate in timestamp format', example: '101343600000' })
   @Expose()
-  @Type(() => String)
-  login: string;
-
-  @ApiModelProperty({ description: 'Password', example: 'iLoveBanana1997'})
-  @Expose()
-  @Type(() => String)
-  password: string;
-
-  @ApiModelProperty({ description: 'Role', example: 'ADMIN'})
-  @Expose()
-  @Type(() => String)
-  role: string;
+  @Type(() => Number)
+  enDate: string;
 
   constructor(partial: Partial<GroupEntity>){
     Object.assign(this, partial);

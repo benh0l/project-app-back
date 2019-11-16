@@ -23,10 +23,12 @@ export class GroupEntity {
   @Type(() => Date)
   endDate: Date;
 
+  /*
   @ApiModelProperty({ description: 'List of students', example: '{}'})
   @Expose()
   @Type(() => String)
   students: string;
+  */
 
   constructor(partial: Partial<GroupEntity>){
     Object.assign(this, partial);

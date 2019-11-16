@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 
 @Injectable()
-export class YearGroupService{
+export class GroupService{
 
   constructor(){
 

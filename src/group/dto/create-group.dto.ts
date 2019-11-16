@@ -1,5 +1,5 @@
 import { UserEntity } from '../../user/entities/user.entity';
-import { Min, Max, IsDate, IsNotEmpty, IsString, ValidateNested } from 'class-validator';
+import { MinLength, MaxLength, IsDate, IsNotEmpty, IsString, ValidateNested } from 'class-validator';
 import { Type } from 'class-transformer';
 import { ApiModelProperty, ApiModelPropertyOptional } from '@nestjs/swagger';
 
@@ -8,8 +8,8 @@ export class CreateGroupDto {
   @ApiModelProperty({ description: 'Name', example: 'Master 2 2019' })
   @IsString()
   @IsNotEmpty()
-  @Min(3)
-  @Max(28)
+  @MinLength(3)
+  @MaxLength(28)
   name: string;
 
   @ApiModelProperty({ description: 'StartDate', example: '28-02-2019' })

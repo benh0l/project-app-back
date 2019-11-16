@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { GroupDao } from './dao/group.dao';
-import { CreateGroupDto } from './dto/create-group-dto';
+import { CreateGroupDto } from './dto/create-group.dto';
 
 @Injectable()
 export class GroupService{

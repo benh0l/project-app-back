@@ -16,7 +16,15 @@ export const GroupSchema = new mongoose.Schema({
     type: Date,
     required: true,
   },
+
+  students: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User',
+    }
+  ],
 }, {
   toJSON: { virtuals: true },
   versionKey: false,
+  collection: 'group',
 });

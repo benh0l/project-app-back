@@ -13,27 +13,22 @@ export class YearGroupEntity {
   @Type(() => String)
   name: string;
 
-  @ApiModelProperty({ description: 'Lastname', example: 'Boquet' })
+  @ApiModelProperty({ description: 'Start date', example: '28-02-2019' })
+  @Expose()
+  @Type(() => Date)
+  startDate: Date;
+
+  @ApiModelProperty({ description: 'End date', example: '05-04-2019' })
+  @Expose()
+  @Type(() => Date)
+  endDate: Date;
+
+  @ApiModelProperty({ description: 'List of students', example: '{}'})
   @Expose()
   @Type(() => String)
-  lastname: string;
+  students: string;
 
-  @ApiModelProperty({ description: 'Login', example: 'Bilboq77'})
-  @Expose()
-  @Type(() => String)
-  login: string;
-
-  @ApiModelProperty({ description: 'Password', example: 'iLoveBanana1997'})
-  @Expose()
-  @Type(() => String)
-  password: string;
-
-  @ApiModelProperty({ description: 'Role', example: 'ADMIN'})
-  @Expose()
-  @Type(() => String)
-  role: string;
-
-  constructor(partial: Partial<YearGroupEntity>){
+  constructor(partial: Partial<YearGroupEntity>) {
     Object.assign(this, partial);
   }
 }

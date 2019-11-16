@@ -4,6 +4,6 @@ import { YearGroupService } from './yeargroup.service';
 
 @Module({
   controllers: [YearGroupController],
-  providers: [ YearGroupService ]
+  providers: [ YearGroupService ],
 })
 export class YearGroupModule {}

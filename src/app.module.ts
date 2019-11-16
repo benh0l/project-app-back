@@ -10,7 +10,7 @@ import * as Config from 'config';
 @Module({
   imports: [ UserModule,
     MongooseModule.forRoot(Config.get<string>('mongodb.uri'), Config.get<MongooseModuleOptions>('mongodb.options')),
-    YearGroupModule,],
+    YearGroupModule],
   controllers: [AppController],
   providers: [AppService],
 })

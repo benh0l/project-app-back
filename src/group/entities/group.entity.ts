@@ -25,10 +25,10 @@ export class GroupEntity {
   @Type(() => Number)
   endDate: number;
 
-  @ApiModelProperty({ description: 'List of students', example: '{}'})
+  @ApiModelProperty({ description: 'List of students', example: '[]'})
   @Expose()
   @Type(() => String)
-  students: string[];
+  studentsId: string[];
 
   @ApiModelProperty({ description: 'Responsible' })
   @Expose()

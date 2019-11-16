@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Put } from '@nestjs/common';
 import { GroupService } from './group.service';
 import { GroupEntity } from './entities/group.entity';
 import { Observable } from 'rxjs';
@@ -13,7 +13,8 @@ import {
 import { UserEntity } from '../user/entities/user.entity';
 import { CreateUserDto } from '../user/dto/create-user.dto';
 import { CreateGroupDto } from './dto/create-group.dto';
-import { HandlerParams } from '../user/validators/handler-params';
+import { HandlerParams } from './validators/handler-params';
+import { UpdateGroupDto } from './dto/update-group.dto';
 
 @ApiUseTags('Group')
 @Controller('group')
@@ -36,7 +37,7 @@ export class GroupController {
   @ApiNoContentResponse({ description: 'No group exists in database' })
   @Get()
   findAll(): Observable<GroupEntity[] | void> {
-    return null; //this._groupService.findAll();
+    return this._groupService.findAll();
   }
 
   @ApiCreatedResponse({ description: 'The group has been successfully created', type: GroupEntity })
@@ -47,5 +48,16 @@ export class GroupController {
   @Post()
   create(@Body() createGroupDto: CreateGroupDto): Observable<GroupEntity> {
     return this._groupService.create(createGroupDto);
+  }
+
+  @ApiOkResponse({ description: 'The group has been successfully updated', type: GroupEntity })
+  @ApiNotFoundResponse({ description: 'Group with the given "id" doesn\'t exist in the database' })
+  @ApiBadRequestResponse({ description: 'Parameter and/or payload provided are not good' })
+  @ApiUnprocessableEntityResponse({ description: 'The request can\'t be performed in the database' })
+  @ApiImplicitParam({ name: 'id', description: 'Unique identifier of the group in the database', type: String })
+  @ApiImplicitBody({ name: 'UpdateGroupDto', description: 'Payload to update a person', type: UpdateGroupDto })
+  @Put(':id')
+  update(@Param() params: HandlerParams, @Body() updateGroupDto: UpdateGroupDto): Observable<GroupEntity> {
+    return this._groupService.update(params.id, updateGroupDto);
   }
 }

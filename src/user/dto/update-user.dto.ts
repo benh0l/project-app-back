@@ -1,52 +1,44 @@
-import { Exclude, Expose, Type } from 'class-transformer';
+import { MinLength, IsNotEmpty, IsString, IsEmail } from 'class-validator';
 import { ApiModelProperty } from '@nestjs/swagger';
-import { GroupEntity } from '../../group/entities/group.entity';
+import { Expose, Type } from 'class-transformer';
 
-@Exclude()
-export class UserEntity {
-  @ApiModelProperty({ description: 'Unique identifier in the database', example: '5763cd4dc378a38ecd387737' })
-  @Expose()
-  @Type(() => String)
-  id: string;
+export class UpdateUserDto {
 
   @ApiModelProperty({ description: 'Firstname', example: 'Bill' })
-  @Expose()
-  @Type(() => String)
+  @IsString()
+  @IsNotEmpty()
+  @MinLength(2)
   firstname: string;
 
   @ApiModelProperty({ description: 'Lastname', example: 'Boquet' })
-  @Expose()
-  @Type(() => String)
+  @IsString()
+  @IsNotEmpty()
   lastname: string;
 
   @ApiModelProperty({ description: 'Email', example: 'Mclaughlin.Cochran@undefined.com' })
-  @Expose()
-  @Type(() => String)
+  @IsEmail()
   email: string;
 
   @ApiModelProperty({ description: 'Login', example: 'Bilboq77'})
-  @Expose()
-  @Type(() => String)
+  @IsString()
+  @IsNotEmpty()
+  @MinLength(4)
   login: string;
 
   /*
   @ApiModelProperty({ description: 'Password', example: 'iLoveBanana1997'})
-  @Expose()
-  @Type(() => String)
+  @IsString()
+  @IsNotEmpty()
+  @Min(8)
   password: string;
    */
-
   @ApiModelProperty({ description: 'List of groups', example: '[]'})
   @Expose()
   @Type(() => String)
   groupsId: string[];
 
   @ApiModelProperty({ description: 'Role', example: 'ADMIN'})
-  @Expose()
-  @Type(() => String)
+  @IsString()
+  @IsNotEmpty()
   role: string;
-
-  constructor(partial: Partial<UserEntity>){
-    Object.assign(this, partial);
-  }
 }

@@ -4,6 +4,9 @@ import { catchError, flatMap, map } from 'rxjs/operators';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UserEntity } from './entities/user.entity';
 import { UserDao } from './dao/user.dao';
+import { UpdateGroupDto } from '../group/dto/update-group.dto';
+import { GroupEntity } from '../group/entities/group.entity';
+import { UpdateUserDto } from './dto/update-user.dto';
 
 
 @Injectable()
@@ -11,6 +14,25 @@ export class UserService{
 
   constructor(private readonly _userDao: UserDao) {
   }
+
+  update(id: string, user: UpdateUserDto): Observable<UserEntity> {
+    return this._userDao.findByIdAndUpdate(id, user)
+      .pipe(
+        catchError(e =>
+          e.code = 11000 ?
+            throwError(
+              new ConflictException(`User with name '${user.firstname}' and '${user.lastname}' already exists`),
+            ) :
+            throwError(new UnprocessableEntityException(e.message)),
+        ),
+        flatMap(_ =>
+          !!_ ?
+            of(new UserEntity((_))) :
+            throwError(new NotFoundException(`User with id '${id}' not found`)),
+        ),
+      );
+  }
+
 
   findOne(id: string): Observable<UserEntity> {
     return this._userDao.findById(id)
@@ -21,6 +43,13 @@ export class UserService{
             of(new UserEntity(_)) :
             throwError(new NotFoundException(`User with id '${id}' not found`)),
         ),
+      );
+  }
+
+  findAll(): Observable<UserEntity[] | void> {
+    return this._userDao.findAll()
+      .pipe(
+        map(_ => !!_ ? _.map(__ => new UserEntity(__)) : undefined),
       );
   }
 

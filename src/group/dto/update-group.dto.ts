@@ -22,7 +22,7 @@ export class UpdateGroupDto {
   @IsNotEmpty()
   endDate: number;
 
-  @ApiModelProperty({ description: 'List of students', example: '{}'})
+  @ApiModelProperty({ description: 'List of students', example: '[]'})
   // TODO: Il manque peut être une vérification ici
   @ValidateNested({each: true})
   @Type(() => String)

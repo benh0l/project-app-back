@@ -22,7 +22,7 @@ export class CreateGroupDto {
   @IsNotEmpty()
   endDate: number;
 
-  @ApiModelProperty({ description: 'List of students', example: '{}'})
+  @ApiModelProperty({ description: 'List of students', example: '[]'})
   // TODO: Il manque peut être une vérification ici
   @ValidateNested({each: true})
   @Type(() => String)
@@ -32,4 +32,10 @@ export class CreateGroupDto {
   @ValidateNested()
   @Type(() => String)
   responsibleId: string;
+
+  @ApiModelProperty({ description: 'List of lessons', example: '[]'})
+  // TODO: Il manque peut être une vérification ici
+  @ValidateNested({each: true})
+  @Type(() => String)
+  lessonsId: string[];
 }

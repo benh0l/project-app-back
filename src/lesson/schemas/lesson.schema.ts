@@ -1,6 +1,6 @@
 import * as mongoose from 'mongoose';
 
-export const GroupSchema = new mongoose.Schema({
+export const LessonSchema = new mongoose.Schema({
   name: {
     type: String,
     required: true,
@@ -8,30 +8,20 @@ export const GroupSchema = new mongoose.Schema({
     maxlength: 28,
     trim: true,
   },
-  startDate: {
-    type: Date,
-    required: true,
-  },
-  endDate: {
-    type: Date,
-    required: true,
-  },
-  studentsId: [
+  testsId: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'User',
+      ref: 'Test',
     },
   ],
-  responsibleId: {
+  teacherId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
   },
-  lessonsId: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Lesson',
-    },
-  ],
+  groupId: {
+  type: mongoose.Schema.Types.ObjectId,
+    ref: 'Group',
+},
 }, {
   toJSON: { virtuals: true },
   versionKey: false,

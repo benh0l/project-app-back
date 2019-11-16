@@ -44,7 +44,7 @@ export class GroupController {
   @ApiConflictResponse({ description: 'The group already exists in the database' })
   @ApiBadRequestResponse({ description: 'Payload provided is not good' })
   @ApiUnprocessableEntityResponse({ description: 'The request can\'t be performed in the database' })
-  @ApiImplicitBody({ name: 'CreateGroupDto', description: 'Payload to create a new user', type: CreateGroupDto })
+  @ApiImplicitBody({ name: 'CreateGroupDto', description: 'Payload to create a new group', type: CreateGroupDto })
   @Post()
   create(@Body() createGroupDto: CreateGroupDto): Observable<GroupEntity> {
     return this._groupService.create(createGroupDto);
@@ -55,7 +55,7 @@ export class GroupController {
   @ApiBadRequestResponse({ description: 'Parameter and/or payload provided are not good' })
   @ApiUnprocessableEntityResponse({ description: 'The request can\'t be performed in the database' })
   @ApiImplicitParam({ name: 'id', description: 'Unique identifier of the group in the database', type: String })
-  @ApiImplicitBody({ name: 'UpdateGroupDto', description: 'Payload to update a person', type: UpdateGroupDto })
+  @ApiImplicitBody({ name: 'UpdateGroupDto', description: 'Payload to update a group', type: UpdateGroupDto })
   @Put(':id')
   update(@Param() params: HandlerParams, @Body() updateGroupDto: UpdateGroupDto): Observable<GroupEntity> {
     return this._groupService.update(params.id, updateGroupDto);

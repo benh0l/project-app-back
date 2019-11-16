@@ -8,6 +8,7 @@ import { TestModule } from './test/test.module';
 import * as Config from 'config';
 import { GroupModule } from './group/group.module';
 import { GradeModule } from './grade/grade.module';
+import { LessonModule } from './lesson/lesson.module';
 
 @Module({
   imports: [ UserModule,
@@ -15,6 +16,7 @@ import { GradeModule } from './grade/grade.module';
     GroupModule,
     TestModule,
     GradeModule,
+    LessonModule,
   ],
   controllers: [AppController],
   providers: [AppService],

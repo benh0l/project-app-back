@@ -21,16 +21,15 @@ export class CreateGroupDto {
   @IsNumberString()
   @IsNotEmpty()
   endDate: number;
-/*
+
   @ApiModelProperty({ description: 'List of students', example: '{}'})
   // TODO: Il manque peut être une vérification ici
   @ValidateNested({each: true})
-  @Type(() => UserEntity)
-  students: UserEntity[];
+  @Type(() => String)
+  studentsId: string[];
 
   @ApiModelProperty({ description: 'Responsible'})
   @ValidateNested()
-  @Type(() => UserEntity)
-  responsible: UserEntity;
- */
+  @Type(() => String)
+  responsibleId: string;
 }

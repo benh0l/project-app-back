@@ -7,9 +7,7 @@ export interface Group extends Document {
   name: string;
   startDate: number;
   endDate: number;
-  /*
-  students: User[];
-  responsible: User;
-  */
+  studentsId: string[];
+  responsibleId: string;
 }
 

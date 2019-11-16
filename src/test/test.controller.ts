@@ -35,14 +35,14 @@ export class TestController {
   @ApiBadRequestResponse({ description: 'Parameter provided is not good' })
   @ApiImplicitParam({ name: 'id', description: 'Unique identifier of the test in the database', type: String })
   @Get(':id')
-  find(@Param() params: TestParams): Observable<TestEntity[] | void> {
-    return this._testService.find(params.id);
+  find(@Param() params: TestParams): Observable<TestEntity | void> {
+    return this._testService.findById(params.id);
   }
 
   @ApiCreatedResponse({ description: 'The test has been successfully created', type: TestEntity })
   @ApiConflictResponse({ description: 'The test already exists in the database' })
   @ApiBadRequestResponse({ description: 'Payload provided is not good' })
-  @ApiImplicitBody({ name: 'CreateTestDto', description: 'Payload to create a new person', type: CreateTestDto })
+  @ApiImplicitBody({ name: 'CreateTestDto', description: 'Payload to create a new test', type: CreateTestDto })
   @Post()
   create(@Body() createTestDto: CreateTestDto): Observable<TestEntity> {
     return this._testService.create(createTestDto);

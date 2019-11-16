@@ -10,8 +10,10 @@ import { GroupModule } from './group/group.module';
 
 @Module({
   imports: [ UserModule,
-    MongooseModule.forRoot(Config.get<string>('mongodb.uri'), Config.get<MongooseModuleOptions>('mongodb.options')), GroupModule,
-    TestModule],
+    MongooseModule.forRoot(Config.get<string>('mongodb.uri'), Config.get<MongooseModuleOptions>('mongodb.options')),
+    GroupModule,
+    TestModule,
+  ],
   controllers: [AppController],
   providers: [AppService],
 })

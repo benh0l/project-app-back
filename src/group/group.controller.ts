@@ -8,7 +8,7 @@ import {
   ApiUseTags,
 } from '@nestjs/swagger';
 
-@ApiUseTags('people')
+@ApiUseTags('Group')
 @Controller('group')
 export class GroupController {
   constructor(private readonly _groupService: GroupService){

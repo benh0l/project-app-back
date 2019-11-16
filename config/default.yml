@@ -3,9 +3,9 @@ server:
   port: 4000
 swagger:
   title: New Web's Technologies course with NestJS
-  description: The People API description
+  description: The Website API description
   version: 1.0
-  tag: people
+  tag: Website
   path: documentation
 mongodb:
   uri: mongodb://0.0.0.0:27017/nest

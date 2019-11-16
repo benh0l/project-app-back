@@ -37,8 +37,15 @@ export const UserSchema = new mongoose.Schema({
     required: true,
     trim: true,
   },
+  groups: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Group',
+    }
+  ],
 
 }, {
   toJSON: { virtuals: true },
   versionKey: false,
+  collection: 'user',
 });

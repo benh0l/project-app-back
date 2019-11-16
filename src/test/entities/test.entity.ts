@@ -23,6 +23,16 @@ export class TestEntity {
   @Type(() => Boolean)
   shown: boolean;
 
+  @ApiModelProperty({ description: 'Lesson id', example: '6djso85qsd87dc55qsd785xc'})
+  @Expose()
+  @Type(() => String)
+  lessonId: string;
+
+  @ApiModelProperty({ description: 'List of grades id', example: '{4hff5484scbvfd8421sqdcx4},{8cxw4854cwxc874cdw48c48x}' })
+  @Expose()
+  @Type(() => String)
+  gradesId: string[];
+
   constructor(partial: Partial<TestEntity>) {
     Object.assign(this, partial);
   }

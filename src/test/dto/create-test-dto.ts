@@ -23,4 +23,14 @@ export class CreateTestDto {
   @IsBoolean()
   @IsNotEmpty()
   shown: boolean;
+
+  @ApiModelProperty({ description: 'Lesson id', example: ''})
+  @ValidateNested()
+  @Type(() => String)
+  lessonId: string;
+
+  @ApiModelProperty({ description: 'List of grades id'})
+  @ValidateNested({each: true})
+  @Type(() => String)
+  gradesId: string[];
 }

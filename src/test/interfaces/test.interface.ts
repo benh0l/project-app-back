@@ -6,4 +6,6 @@ export interface Test extends Document {
   date: number;
   coefficient: number;
   shown: boolean;
+  lessonId: string;
+  gradesId: string[];
 }

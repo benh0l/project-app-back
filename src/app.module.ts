@@ -6,10 +6,11 @@ import { UserModule } from './user/user.module';
 import { MongooseModule, MongooseModuleOptions } from '@nestjs/mongoose';
 import { TestModule } from './test/test.module';
 import * as Config from 'config';
+import { GroupModule } from './group/group.module';
 
 @Module({
   imports: [ UserModule,
-    MongooseModule.forRoot(Config.get<string>('mongodb.uri'), Config.get<MongooseModuleOptions>('mongodb.options')),
+    MongooseModule.forRoot(Config.get<string>('mongodb.uri'), Config.get<MongooseModuleOptions>('mongodb.options')), GroupModule,
     TestModule],
   controllers: [AppController],
   providers: [AppService],

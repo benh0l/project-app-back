@@ -13,4 +13,8 @@ export class TestService {
   findAll() {
     return undefined;
   }
+
+  find(id: string) {
+    return undefined;
+  }
 }

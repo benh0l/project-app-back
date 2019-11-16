@@ -6,6 +6,7 @@ import { Observable, of, throwError } from 'rxjs';
 import { UserEntity } from '../user/entities/user.entity';
 import { catchError, flatMap, map } from 'rxjs/operators';
 import { GroupEntity } from './entities/group.entity';
+import { UpdateGroupDto } from './dto/update-group.dto';
 
 @Injectable()
 export class GroupService{
@@ -19,6 +20,24 @@ export class GroupService{
         flatMap(_ =>
           !!_ ?
             of(new GroupEntity(_)) :
+            throwError(new NotFoundException(`Group with id '${id}' not found`)),
+        ),
+      );
+  }
+
+  update(id: string, group: UpdateGroupDto): Observable<GroupEntity> {
+    return this._groupDao.findByIdAndUpdate(id, group)
+      .pipe(
+        catchError(e =>
+          e.code = 11000 ?
+            throwError(
+              new ConflictException(`Group with name '${group.name}' already exists`),
+            ) :
+            throwError(new UnprocessableEntityException(e.message)),
+        ),
+        flatMap(_ =>
+          !!_ ?
+            of(new GroupEntity((_))) :
             throwError(new NotFoundException(`Group with id '${id}' not found`)),
         ),
       );
@@ -50,7 +69,10 @@ export class GroupService{
       );
   }
 
-  findAll() {
-    return undefined;
+  findAll(): Observable<GroupEntity[] | void> {
+    return this._groupDao.findAll()
+      .pipe(
+        map(_ => !!_ ? _.map(__ => new GroupEntity(__)) : undefined),
+      );
   }
 }

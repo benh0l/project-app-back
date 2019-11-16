@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, Param } from '@nestjs/common';
+import { Body, Controller, Get, Post, Param, Put } from '@nestjs/common';
 import { Observable } from 'rxjs';
 import { UserService } from './user.service';
 import { UserEntity } from './entities/user.entity';
@@ -15,6 +15,9 @@ import {
   ApiOkResponse, ApiUnprocessableEntityResponse,
   ApiUseTags,
 } from '@nestjs/swagger';
+import { GroupEntity } from '../group/entities/group.entity';
+import { UpdateGroupDto } from '../group/dto/update-group.dto';
+import { UpdateUserDto } from './dto/update-user.dto';
 
 @ApiUseTags('User')
 @Controller('user')
@@ -24,9 +27,12 @@ export class UserController {
 
   }
 
+
+  @ApiOkResponse({ description: 'Returns an array of user', type: UserEntity, isArray: true })
+  @ApiNoContentResponse({ description: 'No group exists in database' })
   @Get()
-  findAll(): string {
-    return 'This action returns all users';
+  findAll():  Observable<UserEntity[] | void> {
+    return this._userService.findAll();
   }
 
   @ApiOkResponse({ description: 'Returns the user for the given "id"', type: UserEntity })
@@ -49,10 +55,14 @@ export class UserController {
     return this._userService.create(createUserDto);
   }
 
-  /* To Do
-  // @Get(':id')
-  findById(@Param() params: UserParams): Observable<UserEntity> {
-    return 'This action returns a user by his id';
+  @ApiOkResponse({ description: 'The user has been successfully updated', type: UserEntity })
+  @ApiNotFoundResponse({ description: 'User with the given "id" doesn\'t exist in the database' })
+  @ApiBadRequestResponse({ description: 'Parameter and/or payload provided are not good' })
+  @ApiUnprocessableEntityResponse({ description: 'The request can\'t be performed in the database' })
+  @ApiImplicitParam({ name: 'id', description: 'Unique identifier of the user in the database', type: String })
+  @ApiImplicitBody({ name: 'UpdateGroupDto', description: 'Payload to update a user', type: UpdateUserDto })
+  @Put(':id')
+  update(@Param() params: HandlerParams, @Body() updateUserDto: UpdateUserDto): Observable<UserEntity> {
+    return this._userService.update(params.id, updateUserDto);
   }
-  */
 }

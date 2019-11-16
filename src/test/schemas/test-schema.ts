@@ -24,4 +24,5 @@ export const TestSchema = new mongoose.Schema({
 }, {
   toJSON: { virtuals: true },
   versionKey: false,
+  collection: "test",
 });

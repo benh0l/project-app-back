@@ -1,6 +1,5 @@
 import { Exclude, Expose, Type } from 'class-transformer';
 import { ApiModelProperty } from '@nestjs/swagger';
-import { GroupEntity } from '../../group/entities/group.entity';
 
 @Exclude()
 export class TestEntity {
@@ -29,7 +28,7 @@ export class TestEntity {
   @Type(() => Boolean)
   shown: boolean;
 
-  constructor(partial: Partial<GroupEntity>){
+  constructor(partial: Partial<TestEntity>) {
     Object.assign(this, partial);
   }
 }

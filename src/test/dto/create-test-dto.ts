@@ -7,22 +7,20 @@ export class CreateTestDto {
   @ApiModelProperty({ description: 'Title', example: 'Nouvelles technologies du web' })
   @IsString()
   @IsNotEmpty()
-  @Min(3)
-  @Max(40)
-  name: string;
+  title: string;
 
-  @ApiModelProperty({ description: 'Date', example: '14-02-2019' })
-  @IsDate()
+  @ApiModelProperty({ description: 'Date', example: '29/10/2019' })
+  @IsString()
   @IsNotEmpty()
-  date: Date;
+  date: string;
 
-  @ApiModelProperty({ description: 'Coefficient of the test', example: '3'})
+  @ApiModelProperty({ description: 'Coefficient of the test', example: 3})
   @IsNumber()
   @IsNotEmpty()
   coefficient: number;
 
-  @ApiModelProperty({ description: 'Is the test visible', example: 'true'})
+  @ApiModelProperty({ description: 'Is the test visible', example: true})
   @IsBoolean()
   @IsNotEmpty()
-  students: boolean;
+  shown: boolean;
 }

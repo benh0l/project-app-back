@@ -4,14 +4,13 @@ export const TestSchema = new mongoose.Schema({
   title: {
     type: String,
     required: true,
-    minlength: 3,
-    maxlength: 40,
     trim: true,
   },
   date: {
-    type: Date,
+    type: Number,
     required: true,
-  },
+  }
+  ,
   coefficient: {
     type: Number,
     required: true,
@@ -23,5 +22,5 @@ export const TestSchema = new mongoose.Schema({
 }, {
   toJSON: { virtuals: true },
   versionKey: false,
-  collection: "test",
+  collection: 'test',
 });

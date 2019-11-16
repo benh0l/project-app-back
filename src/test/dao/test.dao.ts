@@ -5,6 +5,7 @@ import { Test } from '../interfaces/test.interface';
 import { from, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { MongooseDocument } from 'mongoose';
+import { CreateTestDto } from '../dto/create-test-dto';
 
 @Injectable()
 export class TestDao {
@@ -23,6 +24,13 @@ export class TestDao {
     return from(this._testModel.findById(id))
       .pipe(
         map((doc: MongooseDocument) => !!doc ? doc.toJSON() : undefined),
+      );
+  }
+
+  create(test: CreateTestDto): Observable<Test> {
+    return from(this._testModel.create(test))
+      .pipe(
+        map((doc: MongooseDocument) => doc.toJSON()),
       );
   }
 }

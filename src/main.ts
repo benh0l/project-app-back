@@ -9,6 +9,8 @@ import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 
 async function bootstrap(config: AppConfig,  swaggerConfig: SwaggerConfig) {
   const app = await NestFactory.create<NestFastifyApplication>(AppModule, new FastifyAdapter({ logger: true}) );
+  // Accept cross-origin
+  app.enableCors();
 
   app.useGlobalPipes(
     new ValidationPipe({

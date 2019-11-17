@@ -5,7 +5,7 @@ export const LessonSchema = new mongoose.Schema({
     type: String,
     required: true,
     minlength: 3,
-    maxlength: 28,
+    maxlength: 50,
     trim: true,
   },
   testsId: [
@@ -25,5 +25,5 @@ export const LessonSchema = new mongoose.Schema({
 }, {
   toJSON: { virtuals: true },
   versionKey: false,
-  collection: 'group',
+  collection: 'lesson',
 });

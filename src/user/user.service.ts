@@ -33,7 +33,6 @@ export class UserService{
       );
   }
 
-
   findOne(id: string): Observable<UserEntity> {
     return this._userDao.findById(id)
       .pipe(

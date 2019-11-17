@@ -1,6 +1,8 @@
-import { Min, Max, IsDate, IsNotEmpty, IsString, IsBoolean, IsNumber, ValidateNested } from 'class-validator';
+import { Min, Max, IsDate, IsNotEmpty, IsString, IsBoolean, IsNumber, ValidateNested, IsOptional, IsMongoId } from 'class-validator';
 import { Type } from 'class-transformer';
 import { ApiModelProperty, ApiModelPropertyOptional } from '@nestjs/swagger';
+import { LessonsDto } from '../../shared/dto/lessons.dto';
+import { GradesDto } from '../../shared/dto/grades.dto';
 
 export class CreateTestDto {
 
@@ -25,12 +27,14 @@ export class CreateTestDto {
   shown: boolean;
 
   @ApiModelProperty({ description: 'Lesson id', example: ''})
-  @ValidateNested()
-  @Type(() => String)
+  @IsOptional()
+  @IsMongoId()
+  @IsNotEmpty()
   lessonId: string;
 
   @ApiModelProperty({ description: 'List of grades id'})
+  @IsOptional()
   @ValidateNested({each: true})
-  @Type(() => String)
-  gradesId: string[];
+  @Type(() => GradesDto)
+  gradesId: GradesDto[];
 }

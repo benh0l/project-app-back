@@ -3,8 +3,8 @@ import { MinLength, MaxLength, IsNumberString, IsArray, IsNotEmpty, IsOptional, 
 import { Type } from 'class-transformer';
 import { ApiModelProperty, ApiModelPropertyOptional } from '@nestjs/swagger';
 import * as mongoose from '@nestjs/mongoose';
-import { StudentsDto } from './students.dto';
-import { LessonsDto } from './lessons.dto';
+import { StudentsDto } from '../../shared/dto/students.dto';
+import { LessonsDto } from '../../shared/dto/lessons.dto';
 
 export class CreateGroupDto {
 

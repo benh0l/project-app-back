@@ -2,6 +2,8 @@ import { UserEntity } from '../../user/entities/user.entity';
 import { MinLength, MaxLength, IsNumberString, IsOptional, IsMongoId, IsNotEmpty, IsString, ValidateNested, IsInstance } from 'class-validator';
 import { Type } from 'class-transformer';
 import { ApiModelProperty, ApiModelPropertyOptional } from '@nestjs/swagger';
+import { GradesDto } from '../../shared/dto/grades.dto';
+import { TestDto } from '../../shared/dto/test.dto';
 
 export class CreateLessonDto {
 
@@ -12,21 +14,19 @@ export class CreateLessonDto {
   @MaxLength(28)
   name: string;
 
-  @ApiModelProperty({ description: 'List of tests', example: '[]'})
+  @ApiModelProperty({ description: 'List of tests', example: []})
   @IsOptional()
-  @IsMongoId()
-  @IsNotEmpty()
-  testsId: string[];
+  @ValidateNested({each: true})
+  @Type(() => TestDto)
+  gradesId: TestDto[];
 
   @ApiModelProperty({ description: 'Teacher'})
   @IsOptional()
   @IsMongoId()
-  @IsNotEmpty()
   teacherId: string;
 
   @ApiModelProperty({ description: 'Group'})
   @IsOptional()
   @IsMongoId()
-  @IsNotEmpty()
   groupId: string;
 }

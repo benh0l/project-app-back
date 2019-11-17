@@ -6,12 +6,4 @@ export class GradeParams {
   @IsNotEmpty()
   id: string;
 
-  @IsMongoId()
-  @IsNotEmpty()
-  userId: string;
-
-  @IsMongoId()
-  @IsNotEmpty()
-  testId: string;
-
 }

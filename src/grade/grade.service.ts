@@ -2,7 +2,7 @@ import { ConflictException, Injectable, NotFoundException, UnprocessableEntityEx
 import { CreateGradeDto } from './dto/create-grade-dto';
 import { GradeDao } from './dao/grade.dao';
 import { GradeEntity } from './entities/grade.entity';
-import { catchError, flatMap, map } from 'rxjs/operators';
+import { catchError, find, flatMap, map } from 'rxjs/operators';
 import { Observable, of, throwError } from 'rxjs';
 import { UpdateGradeDto } from './dto/update-grade-dto';
 
@@ -26,7 +26,6 @@ export class GradeService {
       );
   }
 
-
   private _addGrade(grade: CreateGradeDto): Observable<CreateGradeDto> {
     return of(grade)
       .pipe(
@@ -48,8 +47,7 @@ export class GradeService {
       .pipe(
         catchError(e => throwError(new UnprocessableEntityException(e.message))),
         flatMap(_ =>
-          !!_ ?
-            of(new GradeEntity(_)) :
+          !!_ ? _.map( __ => new GradeEntity(__)) :
             throwError(new NotFoundException(`Grade with testId '${id}' not found`)),
         ),
       );
@@ -60,8 +58,7 @@ export class GradeService {
       .pipe(
         catchError(e => throwError(new UnprocessableEntityException(e.message))),
         flatMap(_ =>
-          !!_ ?
-            of(new GradeEntity(_)) :
+          !!_ ? _.map( __ => new GradeEntity(__)) :
             throwError(new NotFoundException(`Grade with userId '${id}' not found`)),
         ),
       );

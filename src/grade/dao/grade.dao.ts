@@ -3,7 +3,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Grade } from '../interfaces/grade.interface';
 import { from, Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { find, map } from 'rxjs/operators';
 import { MongooseDocument } from 'mongoose';
 import { CreateGradeDto } from '../dto/create-grade-dto';
 import { UpdateGradeDto } from '../dto/update-grade-dto';
@@ -22,18 +22,18 @@ export class GradeDao {
   }
 
   // TO DO
-  findByUserId(id: string): Observable<Grade | void> {
-    return from(this._gradeModel.findById(id))
+  findByUserId(id: string): Observable<Grade[] | void> {
+    return from(this._gradeModel.find({userId: id}))
       .pipe(
-        map((doc: MongooseDocument) => !!doc ? doc.toJSON() : undefined),
+        map((docs: MongooseDocument[]) => (!!docs && docs.length > 0) ? docs.map(_ => _.toJSON()) : undefined),
       );
   }
 
   // TO DO
-  findByTestId(id: string): Observable<Grade | void> {
-    return from(this._gradeModel.findById(id))
+  findByTestId(id: string): Observable<Grade[] | void> {
+    return from(this._gradeModel.find({testId: id}))
       .pipe(
-        map((doc: MongooseDocument) => !!doc ? doc.toJSON() : undefined),
+        map((docs: MongooseDocument[]) => (!!docs && docs.length > 0) ? docs.map(_ => _.toJSON()) : undefined),
       );
   }
 

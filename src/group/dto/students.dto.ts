@@ -5,6 +5,8 @@ import { ApiModelProperty, ApiModelPropertyOptional } from '@nestjs/swagger';
 export class StudentsDto{
 
   @ApiModelProperty({ description: 'id of a student', example: 'sdqefq5' })
+  @IsOptional()
   @IsMongoId()
+  @IsNotEmpty()
   id: string;
 }

@@ -9,7 +9,7 @@ import { GroupEntity } from './entities/group.entity';
 import { UpdateGroupDto } from './dto/update-group.dto';
 
 @Injectable()
-export class GroupService{
+export class GroupService {
 
   constructor(private readonly _groupDao: GroupDao) {
   }

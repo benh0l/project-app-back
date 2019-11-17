@@ -11,4 +11,3 @@ export interface Group extends Document {
   responsibleId: string;
   lessonsId: string[];
 }
-

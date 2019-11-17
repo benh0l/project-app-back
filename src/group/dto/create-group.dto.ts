@@ -1,15 +1,16 @@
 import { UserEntity } from '../../user/entities/user.entity';
-import { MinLength, MaxLength, IsNumberString, IsNotEmpty, IsOptional, IsString, ValidateNested, IsMongoId, IsInstance } from 'class-validator';
+import { MinLength, MaxLength, IsNumberString, IsArray, IsNotEmpty, IsOptional, IsString, ValidateNested, IsMongoId, IsInstance } from 'class-validator';
 import { Type } from 'class-transformer';
 import { ApiModelProperty, ApiModelPropertyOptional } from '@nestjs/swagger';
+import * as mongoose from '@nestjs/mongoose';
+import { StudentsDto } from './students.dto';
+import { LessonsDto } from './lessons.dto';
 
 export class CreateGroupDto {
 
   @ApiModelProperty({ description: 'Name', example: 'Master 2 2019' })
   @IsString()
   @IsNotEmpty()
-  @MinLength(3)
-  @MaxLength(28)
   name: string;
 
   @ApiModelProperty({ description: 'StartDate', example: '101343600000' })
@@ -22,11 +23,11 @@ export class CreateGroupDto {
   @IsNotEmpty()
   endDate: number;
 
-  @ApiModelProperty({ description: 'List of students', example: '[]'})
+  @ApiModelProperty({ description: 'List of students', isArray: true, example: []})
   @IsOptional()
-  @IsMongoId()
-  @IsNotEmpty()
-  studentsId: string[];
+  @ValidateNested({each: true})
+  @Type(() => StudentsDto)
+  studentsId: StudentsDto[];
 
   @ApiModelProperty({ description: 'Responsible'})
   @IsOptional()
@@ -34,9 +35,9 @@ export class CreateGroupDto {
   @IsNotEmpty()
   responsibleId: string;
 
-  @ApiModelProperty({ description: 'List of lessons', example: '[]'})
+  @ApiModelProperty({ description: 'List of lessons', isArray: true, example: '[{\'id\': \'5dd071bd73f3c42a841ba5b4\'}, {\'id\': \'5dd128f6fa9d8547af028475\'}]'})
   @IsOptional()
-  @IsMongoId()
-  @IsNotEmpty()
-  lessonsId: string[];
+  @ValidateNested({each: true})
+  @Type(() => LessonsDto)
+  lessonsId: LessonsDto[];
 }

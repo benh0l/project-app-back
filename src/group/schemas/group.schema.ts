@@ -14,22 +14,18 @@ export const GroupSchema = new mongoose.Schema({
     type: Date,
     required: true,
   },
-  studentsId: [
-    {
+  studentsId: [{
       type: mongoose.Schema.Types.ObjectId,
       ref: 'User',
-    },
-  ],
+  }],
   responsibleId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
   },
-  lessonsId: [
-    {
+  lessonsId: [{
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Lesson',
-    },
-  ],
+    }],
 }, {
   toJSON: { virtuals: true },
   versionKey: false,

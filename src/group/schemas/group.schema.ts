@@ -4,8 +4,6 @@ export const GroupSchema = new mongoose.Schema({
   name: {
     type: String,
     required: true,
-    minlength: 3,
-    maxlength: 28,
     trim: true,
   },
   startDate: {

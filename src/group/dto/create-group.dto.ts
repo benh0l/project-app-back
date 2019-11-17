@@ -1,5 +1,5 @@
 import { UserEntity } from '../../user/entities/user.entity';
-import { MinLength, MaxLength, IsNumberString, IsNotEmpty, IsString, ValidateNested, IsInstance } from 'class-validator';
+import { MinLength, MaxLength, IsNumberString, IsNotEmpty, IsOptional, IsString, ValidateNested, IsMongoId, IsInstance } from 'class-validator';
 import { Type } from 'class-transformer';
 import { ApiModelProperty, ApiModelPropertyOptional } from '@nestjs/swagger';
 
@@ -23,19 +23,20 @@ export class CreateGroupDto {
   endDate: number;
 
   @ApiModelProperty({ description: 'List of students', example: '[]'})
-  // TODO: Il manque peut être une vérification ici
-  @ValidateNested({each: true})
-  @Type(() => String)
+  @IsOptional()
+  @IsMongoId()
+  @IsNotEmpty()
   studentsId: string[];
 
   @ApiModelProperty({ description: 'Responsible'})
-  @ValidateNested()
-  @Type(() => String)
+  @IsOptional()
+  @IsMongoId()
+  @IsNotEmpty()
   responsibleId: string;
 
   @ApiModelProperty({ description: 'List of lessons', example: '[]'})
-  // TODO: Il manque peut être une vérification ici
-  @ValidateNested({each: true})
-  @Type(() => String)
+  @IsOptional()
+  @IsMongoId()
+  @IsNotEmpty()
   lessonsId: string[];
 }

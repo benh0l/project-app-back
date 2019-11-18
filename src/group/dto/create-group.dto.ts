@@ -13,31 +13,35 @@ export class CreateGroupDto {
   @IsNotEmpty()
   name: string;
 
-  @ApiModelProperty({ description: 'StartDate', example: '101343600000' })
+  @ApiModelProperty({ description: 'StartDate', example: '12/04/2019' })
   @IsString()
   @IsNotEmpty()
   startDate: string;
 
-  @ApiModelProperty({ description: 'EndDate', example: '101343600000'})
+  @ApiModelProperty({ description: 'EndDate', example: '18/08/2020'})
   @IsString()
   @IsNotEmpty()
   endDate: string;
 
+  /* N'A RIEN A FAIRE DANS LA CREATION
   @ApiModelProperty({ description: 'List of students', isArray: true, example: []})
   @IsOptional()
   @ValidateNested({each: true})
   @Type(() => StudentsDto)
   studentsId: StudentsDto[];
+  */
 
-  @ApiModelProperty({ description: 'Responsible'})
+  @ApiModelProperty({ description: 'Responsible', example: '5dd128f6fa9d8547af028475'})
   @IsOptional()
   @IsMongoId()
   @IsNotEmpty()
   responsibleId: string;
 
-  @ApiModelProperty({ description: 'List of lessons', isArray: true, example: '[{\'id\': \'5dd071bd73f3c42a841ba5b4\'}, {\'id\': \'5dd128f6fa9d8547af028475\'}]'})
+  /* N'A RIEN A FAIRE DANS LA CREATION
+  @ApiModelProperty({ description: 'List of lessons', isArray: true, example: ['5dd071bd73f3c42a841ba5b4', '5dd128f6fa9d8547af028475']})
   @IsOptional()
   @ValidateNested({each: true})
   @Type(() => LessonsDto)
   lessonsId: LessonsDto[];
+  */
 }

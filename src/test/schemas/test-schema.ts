@@ -24,10 +24,8 @@ export const TestSchema = new mongoose.Schema({
     ref: 'Lesson',
   },
   gradesId: [{
-    id: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Grade',
-    },
   }],
 }, {
   toJSON: { virtuals: true },

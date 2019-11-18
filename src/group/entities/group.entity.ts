@@ -25,7 +25,7 @@ export class GroupEntity {
   @Type(() => Number)
   endDate: number;
 
-  @ApiModelProperty({ description: 'List of students', example: '[]'})
+  @ApiModelProperty({ description: 'List of students', example: []})
   @Expose()
   @Type(() => String)
   studentsId: string[];
@@ -35,7 +35,7 @@ export class GroupEntity {
   @Type(() => String)
   responsibleId: string;
 
-  @ApiModelProperty({ description: 'List of lessons', example: '[]'})
+  @ApiModelProperty({ description: 'List of lessons', example: []})
   @Expose()
   @Type(() => String)
   lessonsId: string[];

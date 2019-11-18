@@ -66,8 +66,8 @@ export class GroupService {
       .pipe(
         map(_ =>
           Object.assign(_, {
-            startDate: this._parseDate(String(group.startDate)),
-            endDate: this._parseDate(String(group.endDate)),
+            startDate: this._parseDate(group.startDate),
+            endDate: this._parseDate(group.endDate),
           }),
         ),
       );

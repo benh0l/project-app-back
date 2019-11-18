@@ -8,7 +8,7 @@ swagger:
   tag: Website
   path: documentation
 mongodb:
-  uri: mongodb://0.0.0.0:27017/nest
+  uri: mongodb://0.0.0.0:27017/nestTest
   options:
     useNewUrlParser: true
     useUnifiedTopology: true

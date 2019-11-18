@@ -1,23 +1,31 @@
-db.getCollection('test').insertMany([
+var test1InsertedIds = db.getCollection('test').insertMany([
   {
-    "title": "Nouvelles technologies du web",
+    "title": "Projet Nlles technos web",
     "date": ISODate("2019-11-16T14:00:00.000Z"),
-    "coefficient": 3,
+    "coefficient": 4,
     "shown": "true"
   },
   {
-    "title": "Base de données",
+    "title": "Partiel Nlles technos web",
     "date": ISODate("2019-11-08T14:00:00.000Z"),
-    "coefficient": 2,
+    "coefficient": 6,
     "shown": "true"
   },
+]).insertedIds;
+var test2InsertedIds = db.getCollection('test').insertMany([
   {
-    "title": "CPOOA",
+    "title": "Projet BDD",
     "date": ISODate("2019-12-18T08:00:00.000Z"),
     "coefficient": 5,
-    "shown": "false"
+    "shown": "true"
+  },
+  {
+    "title": "Partiel BDD",
+    "date": ISODate("2019-12-18T08:00:00.000Z"),
+    "coefficient": 5,
+    "shown": "true"
   }
-]);
+]).insertedIds;
 var userInsertedIds = db.getCollection('user').insertMany([
   {
     "firstname": "Admin",
@@ -31,6 +39,20 @@ var userInsertedIds = db.getCollection('user').insertMany([
     "lastname": "Name1",
     "email": "user1.name1@undefined.com",
     "login": "user1",
+    "role": "USER"
+  },
+  {
+    "firstname": "Bill",
+    "lastname": "Boquet",
+    "email": "bill.boquet@undefined.com",
+    "login": "bilboq6",
+    "role": "USER"
+  },
+  {
+    "firstname": "Sarah",
+    "lastname": "Croche",
+    "email": "sarahCroche@undefined.com",
+    "login": "sarapelle",
     "role": "USER"
   }
 ]).insertedIds;
@@ -51,6 +73,33 @@ var groupInsertedIds = db.getCollection('group').insertMany([
     "responsibleId": responsibleId
   }
 ]).insertedIds;
+var lessonInsertedIds = db.getCollection('lesson').insertMany([
+  {
+    "name": "Nlles technos web",
+    "teacherId": responsibleId,
+    "groupId": groupInsertedIds[0],
+    "testsId": test1InsertedIds
+  },
+  {
+    "name": "Base de données",
+    "teacherId": responsibleId,
+    "groupId": groupInsertedIds[0],
+    "testsId": test2InsertedIds
+  }
+]).insertedIds;
+var gradeInsertedIds = db.getCollection('grade').insertMany([
+  {
+    "userId": userInsertedIds[2],
+    "testId": test1InsertedIds[0],
+    "value": 12
+  }
+]).insertedIds;
 for(var i = 0; i < userInsertedIds.length; i++) {
   db.getCollection('user').update({ '_id': userInsertedIds[i] }, { $set: { 'groups': groupInsertedIds } })
 }
+for(var i = 0; i < groupInsertedIds.length; i++){
+  db.getCollection('group').update({'_id': groupInsertedIds[i]}, { $set: {'lessonsId': lessonInsertedIds[i]}})
+}
+
+db.getCollection('test').update({'_id': test1InsertedIds[0]}, { $set: {'gradesId': gradeInsertedIds[0]}})
+

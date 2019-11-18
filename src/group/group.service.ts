@@ -66,6 +66,8 @@ export class GroupService {
       .pipe(
         map(_ =>
           Object.assign(_, {
+            startDate: this._parseDate(String(group.startDate)),
+            endDate: this._parseDate(String(group.endDate)),
           }),
         ),
       );
@@ -112,6 +114,11 @@ export class GroupService {
       .pipe(
         map(_ => !!_ ? _.map(__ => new GroupEntity(__)) : undefined),
       );
+  }
+
+  private _parseDate(date: string): number {
+    const dates = date.split('/');
+    return (new Date(dates[ 2 ] + '/' + dates[ 1 ] + '/' + dates[ 0 ]).getTime());
   }
 
 }

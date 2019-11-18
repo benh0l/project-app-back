@@ -14,14 +14,14 @@ export class CreateGroupDto {
   name: string;
 
   @ApiModelProperty({ description: 'StartDate', example: '101343600000' })
-  @IsNumberString()
+  @IsString()
   @IsNotEmpty()
-  startDate: number;
+  startDate: string;
 
   @ApiModelProperty({ description: 'EndDate', example: '101343600000'})
-  @IsNumberString()
+  @IsString()
   @IsNotEmpty()
-  endDate: number;
+  endDate: string;
 
   @ApiModelProperty({ description: 'List of students', isArray: true, example: []})
   @IsOptional()

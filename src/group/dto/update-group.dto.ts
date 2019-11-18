@@ -1,5 +1,5 @@
 import { UserEntity } from '../../user/entities/user.entity';
-import { MinLength, MaxLength, IsNumberString, IsNotEmpty, IsString, ValidateNested, IsInstance } from 'class-validator';
+import { MinLength, MaxLength, IsNumberString,IsMongoId, IsNotEmpty, IsString, ValidateNested, IsInstance } from 'class-validator';
 import { Type } from 'class-transformer';
 import { ApiModelProperty, ApiModelPropertyOptional } from '@nestjs/swagger';
 
@@ -29,8 +29,8 @@ export class UpdateGroupDto {
   studentsId: string[];
 
   @ApiModelProperty({ description: 'Responsible'})
-  @ValidateNested()
-  @Type(() => String)
+  @IsMongoId()
+  @IsNotEmpty()
   responsibleId: string;
 
 }

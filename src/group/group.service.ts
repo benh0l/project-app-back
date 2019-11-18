@@ -33,7 +33,7 @@ export class GroupService {
         catchError(e =>
           e.code = 11000 ?
             throwError(
-              new ConflictException(`Group with name '${group.name}' already exists`),
+              new ConflictException(`Group with name '${group.name}' already exists`, e.message),
             ) :
             throwError(new UnprocessableEntityException(e.message)),
         ),

@@ -7,6 +7,7 @@ import { UserEntity } from '../user/entities/user.entity';
 import { catchError, flatMap, map } from 'rxjs/operators';
 import { GroupEntity } from './entities/group.entity';
 import { UpdateGroupDto } from './dto/update-group.dto';
+import { AddUserGroupDto } from './dto/addUser-group.dto';
 
 @Injectable()
 export class GroupService {
@@ -65,6 +66,24 @@ export class GroupService {
         map(_ =>
           Object.assign(_, {
           }),
+        ),
+      );
+  }
+
+  addUserToGroup(id: string, user: AddUserGroupDto): Observable<GroupEntity> {
+    return this._groupDao.addUserInGroup(id, user)
+      .pipe(
+        catchError(e =>
+          e.code = 11000 ?
+            throwError(
+              new ConflictException(`User with id '${user.studentId}' already exists in list`, e.message),
+            ) :
+            throwError(new UnprocessableEntityException(e.message)),
+        ),
+        flatMap(_ =>
+          !!_ ?
+            of(new GroupEntity((_))) :
+            throwError(new NotFoundException(`Group with id '${id}' not found`)),
         ),
       );
   }

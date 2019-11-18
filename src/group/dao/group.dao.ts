@@ -8,6 +8,7 @@ import { map } from 'rxjs/operators';
 import { CreateGroupDto } from '../dto/create-group.dto';
 import { User } from '../../user/interfaces/user.interface';
 import { UpdateGroupDto } from '../dto/update-group.dto';
+import { AddUserGroupDto } from '../dto/addUser-group.dto';
 
 @Injectable()
 export class GroupDao {
@@ -42,4 +43,12 @@ export class GroupDao {
         map((doc: MongooseDocument) => doc.toJSON()),
       );
   }
+
+  addUserInGroup(id: string, userId: AddUserGroupDto): Observable<Group | void> {
+    return from(this._groupModel.findByIdAndUpdate({_id: id}, {$push: {'studentsId': {id: userId.studentId}}}))
+      .pipe(
+        map((doc: MongooseDocument) => !!doc ? doc.toJSON() : undefined),
+      );
+  }
+
 }

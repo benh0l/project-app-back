@@ -21,7 +21,6 @@ export class GradeDao {
       );
   }
 
-  // TO DO
   findByUserId(id: string): Observable<Grade[] | void> {
     return from(this._gradeModel.find({userId: id}))
       .pipe(
@@ -29,7 +28,6 @@ export class GradeDao {
       );
   }
 
-  // TO DO
   findByTestId(id: string): Observable<Grade[] | void> {
     return from(this._gradeModel.find({testId: id}))
       .pipe(
@@ -37,7 +35,6 @@ export class GradeDao {
       );
   }
 
-  // TO DO
   create(grade: CreateGradeDto): Observable<Grade> {
     return from(this._gradeModel.create(grade))
       .pipe(

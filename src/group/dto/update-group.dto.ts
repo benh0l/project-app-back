@@ -12,15 +12,15 @@ export class UpdateGroupDto {
   @MaxLength(28)
   name: string;
 
-  @ApiModelProperty({ description: 'StartDate', example: '101343600000' })
-  @IsNumberString()
+  @ApiModelProperty({ description: 'StartDate', example: '15/02/2012' })
+  @IsString()
   @IsNotEmpty()
-  startDate: number;
+  startDate: string;
 
-  @ApiModelProperty({ description: 'EndDate', example: '101343600000'})
-  @IsNumberString()
+  @ApiModelProperty({ description: 'EndDate', example: '15/03/2015'})
+  @IsString()
   @IsNotEmpty()
-  endDate: number;
+  endDate: string;
 
   @ApiModelProperty({ description: 'List of students', example: '[]'})
   // TODO: Il manque peut être une vérification ici

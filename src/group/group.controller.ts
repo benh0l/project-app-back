@@ -16,6 +16,7 @@ import { CreateGroupDto } from './dto/create-group.dto';
 import { HandlerParams } from './validators/handler-params';
 import { UpdateGroupDto } from './dto/update-group.dto';
 import { AddUserGroupDto } from './dto/addUser-group.dto';
+import { DeleteUserGroupDto } from './dto/deleteUser-group.dto';
 
 @ApiUseTags('Group')
 @Controller('group')
@@ -71,5 +72,16 @@ export class GroupController {
   @Put('addUser/:id')
   addUserInGroup(@Param() params: HandlerParams, @Body() addUserGroupDto: AddUserGroupDto): Observable<GroupEntity> {
     return this._groupService.addUserToGroup(params.id, addUserGroupDto);
+  }
+
+  @ApiOkResponse({ description: 'The user has been successfully deleted to the group', type: GroupEntity })
+  @ApiNotFoundResponse({ description: 'Group with the given "id" doesn\'t exist in the database' })
+  @ApiBadRequestResponse({ description: 'Parameter and/or payload provided are not good' })
+  @ApiUnprocessableEntityResponse({ description: 'The request can\'t be performed in the database' })
+  @ApiImplicitParam({ name: 'id', description: 'Unique identifier of the group in the database', type: String })
+  @ApiImplicitBody({ name: 'DeleteUserGroupDto', description: 'Payload to add a user in a group', type: DeleteUserGroupDto })
+  @Put('deleteUser/:id')
+  deleteUserInGroup(@Param() params: HandlerParams, @Body() deleteUserGroupDto: DeleteUserGroupDto): Observable<GroupEntity> {
+    return this._groupService.deleteUserToGroup(params.id, deleteUserGroupDto);
   }
 }

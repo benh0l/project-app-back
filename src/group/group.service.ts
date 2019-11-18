@@ -8,6 +8,7 @@ import { catchError, flatMap, map } from 'rxjs/operators';
 import { GroupEntity } from './entities/group.entity';
 import { UpdateGroupDto } from './dto/update-group.dto';
 import { AddUserGroupDto } from './dto/addUser-group.dto';
+import { DeleteUserGroupDto } from './dto/deleteUser-group.dto';
 
 @Injectable()
 export class GroupService {
@@ -88,10 +89,29 @@ export class GroupService {
       );
   }
 
+  deleteUserToGroup(id: string, deleteUserGroupDto: DeleteUserGroupDto): Observable<GroupEntity> {
+    return this._groupDao.deleteUserInGroup(id, deleteUserGroupDto)
+      .pipe(
+        catchError(e =>
+          e.code = 11000 ?
+            throwError(
+              new ConflictException(`User with id '${deleteUserGroupDto.studentId}' doesn't exist in list`, e.message),
+            ) :
+            throwError(new UnprocessableEntityException(e.message)),
+        ),
+        flatMap(_ =>
+          !!_ ?
+            of(new GroupEntity((_))) :
+            throwError(new NotFoundException(`Group with id '${id}' not found`)),
+        ),
+      );
+  }
+
   findAll(): Observable<GroupEntity[] | void> {
     return this._groupDao.findAll()
       .pipe(
         map(_ => !!_ ? _.map(__ => new GroupEntity(__)) : undefined),
       );
   }
+
 }

@@ -9,6 +9,7 @@ import { CreateGroupDto } from '../dto/create-group.dto';
 import { User } from '../../user/interfaces/user.interface';
 import { UpdateGroupDto } from '../dto/update-group.dto';
 import { AddUserGroupDto } from '../dto/addUser-group.dto';
+import { DeleteUserGroupDto } from '../dto/deleteUser-group.dto';
 
 @Injectable()
 export class GroupDao {
@@ -51,4 +52,10 @@ export class GroupDao {
       );
   }
 
+  deleteUserInGroup(id: string, deleteUserGroupDto: DeleteUserGroupDto): Observable<Group | void> {
+    return from(this._groupModel.findByIdAndUpdate({_id: id}, {$pull: {'studentsId': {id: deleteUserGroupDto.studentId}}}))
+      .pipe(
+        map((doc: MongooseDocument) => !!doc ? doc.toJSON() : undefined),
+      );
+  }
 }

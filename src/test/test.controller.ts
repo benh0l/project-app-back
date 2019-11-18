@@ -17,6 +17,10 @@ import { TestService } from './test.service';
 import { CreateTestDto } from './dto/create-test-dto';
 import { TestParams } from './validators/test-params';
 import { UpdateTestDto } from './dto/update-test-dto';
+import { GroupEntity } from '../group/entities/group.entity';
+import { AddUserGroupDto } from '../group/dto/addUser-group.dto';
+import { HandlerParams } from '../group/validators/handler-params';
+import { DeleteUserGroupDto } from '../group/dto/deleteUser-group.dto';
 
 @ApiUseTags('Test')
 @Controller('test')

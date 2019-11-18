@@ -46,14 +46,14 @@ export class GroupDao {
   }
 
   addUserInGroup(id: string, userId: AddUserGroupDto): Observable<Group | void> {
-    return from(this._groupModel.findByIdAndUpdate({_id: id}, {$push: {'studentsId': userId.studentId}}))
+    return from(this._groupModel.findOneAndUpdate({_id: id, studentsId: {$nin: userId.studentId}}, {$push: {studentsId: userId.studentId}}))
       .pipe(
         map((doc: MongooseDocument) => !!doc ? doc.toJSON() : undefined),
       );
   }
 
   deleteUserInGroup(id: string, deleteUserGroupDto: DeleteUserGroupDto): Observable<Group | void> {
-    return from(this._groupModel.findByIdAndUpdate({_id: id}, {$pull: {'studentsId': deleteUserGroupDto.studentId}}))
+    return from(this._groupModel.findByIdAndUpdate({_id: id}, {$pull: {studentsId: deleteUserGroupDto.studentId}}))
       .pipe(
         map((doc: MongooseDocument) => !!doc ? doc.toJSON() : undefined),
       );

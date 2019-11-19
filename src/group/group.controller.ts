@@ -18,6 +18,8 @@ import { UpdateGroupDto } from './dto/update-group.dto';
 import { AddUserGroupDto } from './dto/addUser-group.dto';
 import { DeleteUserGroupDto } from './dto/deleteUser-group.dto';
 import { TestParams } from '../test/validators/test-params';
+import { AddLessonGroupDto } from './dto/addLesson-group.dto';
+import { DeleteLessonGroupDto } from './dto/deleteLesson-group.dto';
 
 @ApiUseTags('Group')
 @Controller('group')
@@ -75,15 +77,37 @@ export class GroupController {
     return this._groupService.addUserToGroup(params.id, addUserGroupDto);
   }
 
+  @ApiOkResponse({ description: 'The lesson has been successfully added to the group', type: GroupEntity })
+  @ApiNotFoundResponse({ description: 'Group with the given "id" doesn\'t exist in the database' })
+  @ApiBadRequestResponse({ description: 'Parameter and/or payload provided are not good' })
+  @ApiUnprocessableEntityResponse({ description: 'The request can\'t be performed in the database' })
+  @ApiImplicitParam({ name: 'id', description: 'Unique identifier of the group in the database', type: String })
+  @ApiImplicitBody({ name: 'AddLessonGroupDto', description: 'Payload to add a lesson in a group', type: AddLessonGroupDto })
+  @Put('addLesson/:id')
+  addLessonInGroup(@Param() params: HandlerParams, @Body() addLessonGroupDto: AddLessonGroupDto): Observable<GroupEntity> {
+    return this._groupService.addLessonToGroup(params.id, addLessonGroupDto);
+  }
+
   @ApiOkResponse({ description: 'The user has been successfully deleted to the group', type: GroupEntity })
   @ApiNotFoundResponse({ description: 'Group with the given "id" doesn\'t exist in the database' })
   @ApiBadRequestResponse({ description: 'Parameter and/or payload provided are not good' })
   @ApiUnprocessableEntityResponse({ description: 'The request can\'t be performed in the database' })
   @ApiImplicitParam({ name: 'id', description: 'Unique identifier of the group in the database', type: String })
-  @ApiImplicitBody({ name: 'DeleteUserGroupDto', description: 'Payload to add a user in a group', type: DeleteUserGroupDto })
+  @ApiImplicitBody({ name: 'DeleteUserGroupDto', description: 'Payload to delete a user in a group', type: DeleteUserGroupDto })
   @Put('deleteUser/:id')
   deleteUserInGroup(@Param() params: HandlerParams, @Body() deleteUserGroupDto: DeleteUserGroupDto): Observable<GroupEntity> {
     return this._groupService.deleteUserToGroup(params.id, deleteUserGroupDto);
+  }
+
+  @ApiOkResponse({ description: 'The lesson has been successfully deleted to the group', type: GroupEntity })
+  @ApiNotFoundResponse({ description: 'Group with the given "id" doesn\'t exist in the database' })
+  @ApiBadRequestResponse({ description: 'Parameter and/or payload provided are not good' })
+  @ApiUnprocessableEntityResponse({ description: 'The request can\'t be performed in the database' })
+  @ApiImplicitParam({ name: 'id', description: 'Unique identifier of the group in the database', type: String })
+  @ApiImplicitBody({ name: 'DeleteUserGroupDto', description: 'Payload to delete a lesson in a group', type: DeleteUserGroupDto })
+  @Put('deleteLesson/:id')
+  deleteLessonInGroup(@Param() params: HandlerParams, @Body() deleteLessonGroupDto: DeleteLessonGroupDto): Observable<GroupEntity> {
+    return this._groupService.deleteLessonToGroup(params.id, deleteLessonGroupDto);
   }
 
   @ApiNoContentResponse({ description: 'The group has been successfully deleted' })

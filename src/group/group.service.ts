@@ -9,6 +9,8 @@ import { GroupEntity } from './entities/group.entity';
 import { UpdateGroupDto } from './dto/update-group.dto';
 import { AddUserGroupDto } from './dto/addUser-group.dto';
 import { DeleteUserGroupDto } from './dto/deleteUser-group.dto';
+import { AddLessonGroupDto } from './dto/addLesson-group.dto';
+import { DeleteLessonGroupDto } from './dto/deleteLesson-group.dto';
 
 @Injectable()
 export class GroupService {
@@ -91,6 +93,24 @@ export class GroupService {
       );
   }
 
+  addLessonToGroup(id: string, lesson: AddLessonGroupDto): Observable<GroupEntity> {
+    return this._groupDao.addLessonInGroup(id, lesson)
+      .pipe(
+        catchError(e =>
+          e.code = 11000 ?
+            throwError(
+              new ConflictException(`Lesson with id '${lesson.lessonId}' already exists in list`, e.message),
+            ) :
+            throwError(new UnprocessableEntityException(e.message)),
+        ),
+        flatMap(_ =>
+          !!_ ?
+            of(new GroupEntity((_))) :
+            throwError(new NotFoundException(`Lesson with id '${id}' not found`)),
+        ),
+      );
+  }
+
   deleteUserToGroup(id: string, deleteUserGroupDto: DeleteUserGroupDto): Observable<GroupEntity> {
     return this._groupDao.deleteUserInGroup(id, deleteUserGroupDto)
       .pipe(
@@ -105,6 +125,24 @@ export class GroupService {
           !!_ ?
             of(new GroupEntity((_))) :
             throwError(new NotFoundException(`Group with id '${id}' not found`)),
+        ),
+      );
+  }
+
+  deleteLessonToGroup(id: string, deleteLessonGroupDto: DeleteLessonGroupDto): Observable<GroupEntity> {
+    return this._groupDao.deleteLessonInGroup(id, deleteLessonGroupDto)
+      .pipe(
+        catchError(e =>
+          e.code = 11000 ?
+            throwError(
+              new ConflictException(`Lesson with id '${deleteLessonGroupDto.lessonId}' doesn't exist in list`, e.message),
+            ) :
+            throwError(new UnprocessableEntityException(e.message)),
+        ),
+        flatMap(_ =>
+          !!_ ?
+            of(new GroupEntity((_))) :
+            throwError(new NotFoundException(`Lesson with id '${id}' not found`)),
         ),
       );
   }

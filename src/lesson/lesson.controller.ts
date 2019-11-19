@@ -20,8 +20,7 @@ import { TestParams } from '../test/validators/test-params';
 @ApiUseTags('Lesson')
 @Controller('lesson')
 export class LessonController {
-  constructor(private readonly _lessonService: LessonService){
-
+  constructor(private readonly _lessonService: LessonService) {
   }
 
   @ApiOkResponse({ description: 'Returns the lesson for the given "id"', type: LessonEntity })

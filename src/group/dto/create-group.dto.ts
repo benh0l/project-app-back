@@ -1,5 +1,5 @@
 import { UserEntity } from '../../user/entities/user.entity';
-import { MinLength, MaxLength, IsNumberString, IsArray, IsNotEmpty, IsOptional, IsString, ValidateNested, IsMongoId, IsInstance } from 'class-validator';
+import { MinLength, MaxLength, IsNumberString, IsArray, IsNotEmpty, IsDate, IsOptional, IsString, ValidateNested, IsMongoId, IsInstance } from 'class-validator';
 import { Type } from 'class-transformer';
 import { ApiModelProperty, ApiModelPropertyOptional } from '@nestjs/swagger';
 import * as mongoose from '@nestjs/mongoose';

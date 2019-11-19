@@ -73,4 +73,16 @@ export class LessonService{
         map(_ => !!_ ? _.map(__ => new LessonEntity(__)) : undefined),
       );
   }
+
+  delete(id: string): Observable<void> {
+    return this._lessonDao.findByIdAndRemove(id)
+      .pipe(
+        catchError(e => throwError(new NotFoundException(e.message))),
+        flatMap(_ =>
+          !!_ ?
+            of(undefined) :
+            throwError(new NotFoundException(`Lesson with id '${id}' not found`)),
+        ),
+      );
+  }
 }

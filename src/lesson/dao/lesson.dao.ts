@@ -8,6 +8,7 @@ import { map } from 'rxjs/operators';
 import { CreateLessonDto } from '../dto/create-lesson.dto';
 import { User } from '../../user/interfaces/user.interface';
 import { UpdateLessonDto } from '../dto/update-lesson.dto';
+import { Test } from '../../test/interfaces/test.interface';
 
 @Injectable()
 export class LessonDao {
@@ -40,6 +41,13 @@ export class LessonDao {
     return from(this._lessonModel.create(lesson))
       .pipe(
         map((doc: MongooseDocument) => doc.toJSON()),
+      );
+  }
+
+  findByIdAndRemove(id: string): Observable<Lesson | void> {
+    return from(this._lessonModel.findByIdAndRemove(id))
+      .pipe(
+        map((doc: MongooseDocument) => !!doc ? doc.toJSON() : undefined),
       );
   }
 }

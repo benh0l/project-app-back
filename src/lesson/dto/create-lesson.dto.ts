@@ -20,12 +20,12 @@ export class CreateLessonDto {
   @Type(() => TestDto)
   gradesId: TestDto[];
 
-  @ApiModelProperty({ description: 'Teacher'})
+  @ApiModelProperty({ description: 'Teacher', example: '5dd2bcf8dbee82a801bcea5d' })
   @IsOptional()
   @IsMongoId()
   teacherId: string;
 
-  @ApiModelProperty({ description: 'Group'})
+  @ApiModelProperty({ description: 'Group', example: '5dd2bcf8dbee82a801bcea5f' })
   @IsOptional()
   @IsMongoId()
   groupId: string;

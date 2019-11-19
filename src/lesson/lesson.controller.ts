@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post, Put } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
 import { LessonService } from './lesson.service';
 import { LessonEntity } from './entities/lesson.entity';
 import { Observable } from 'rxjs';
@@ -15,6 +15,7 @@ import { CreateUserDto } from '../user/dto/create-user.dto';
 import { CreateLessonDto } from './dto/create-lesson.dto';
 import { HandlerParams } from './validators/handler-params';
 import { UpdateLessonDto } from './dto/update-lesson.dto';
+import { TestParams } from '../test/validators/test-params';
 
 @ApiUseTags('Lesson')
 @Controller('lesson')
@@ -59,5 +60,15 @@ export class LessonController {
   @Put(':id')
   update(@Param() params: HandlerParams, @Body() updateLessonDto: UpdateLessonDto): Observable<LessonEntity> {
     return this._lessonService.update(params.id, updateLessonDto);
+  }
+
+  @ApiNoContentResponse({ description: 'The lesson has been successfully deleted' })
+  @ApiNotFoundResponse({ description: 'Lesson with the given "id" doesn\'t exist in the database' })
+  @ApiBadRequestResponse({ description: 'Parameter provided is not good' })
+  @ApiUnprocessableEntityResponse({ description: 'The request can\'t be performed in the database' })
+  @ApiImplicitParam({ name: 'id', description: 'Unique identifier of the lesson in the database', type: String })
+  @Delete(':id')
+  delete(@Param() params: TestParams): Observable<void> {
+    return this._lessonService.delete(params.id);
   }
 }

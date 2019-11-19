@@ -7,7 +7,7 @@ export const TestSchema = new mongoose.Schema({
     trim: true,
   },
   date: {
-    type: Number,
+    type: Date,
     required: true,
   }
   ,

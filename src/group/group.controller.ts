@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post, Put } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
 import { GroupService } from './group.service';
 import { GroupEntity } from './entities/group.entity';
 import { Observable } from 'rxjs';
@@ -17,11 +17,12 @@ import { HandlerParams } from './validators/handler-params';
 import { UpdateGroupDto } from './dto/update-group.dto';
 import { AddUserGroupDto } from './dto/addUser-group.dto';
 import { DeleteUserGroupDto } from './dto/deleteUser-group.dto';
+import { TestParams } from '../test/validators/test-params';
 
 @ApiUseTags('Group')
 @Controller('group')
 export class GroupController {
-  constructor(private readonly _groupService: GroupService){
+  constructor(private readonly _groupService: GroupService) {
 
   }
 
@@ -83,5 +84,15 @@ export class GroupController {
   @Put('deleteUser/:id')
   deleteUserInGroup(@Param() params: HandlerParams, @Body() deleteUserGroupDto: DeleteUserGroupDto): Observable<GroupEntity> {
     return this._groupService.deleteUserToGroup(params.id, deleteUserGroupDto);
+  }
+
+  @ApiNoContentResponse({ description: 'The group has been successfully deleted' })
+  @ApiNotFoundResponse({ description: 'Group with the given "id" doesn\'t exist in the database' })
+  @ApiBadRequestResponse({ description: 'Parameter provided is not good' })
+  @ApiUnprocessableEntityResponse({ description: 'The request can\'t be performed in the database' })
+  @ApiImplicitParam({ name: 'id', description: 'Unique identifier of the group in the database', type: String })
+  @Delete(':id')
+  delete(@Param() params: TestParams): Observable<void> {
+    return this._groupService.delete(params.id);
   }
 }

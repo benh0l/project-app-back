@@ -116,6 +116,18 @@ export class GroupService {
       );
   }
 
+  delete(id: string): Observable<void> {
+    return this._groupDao.findByIdAndRemove(id)
+      .pipe(
+        catchError(e => throwError(new NotFoundException(e.message))),
+        flatMap(_ =>
+          !!_ ?
+            of(undefined) :
+            throwError(new NotFoundException(`Group with id '${id}' not found`)),
+        ),
+      );
+  }
+
   private _parseDate(date: string): number {
     const dates = date.split('/');
     return (new Date(dates[ 2 ] + '/' + dates[ 1 ] + '/' + dates[ 0 ]).getTime());

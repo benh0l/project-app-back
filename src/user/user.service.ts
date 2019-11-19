@@ -8,9 +8,8 @@ import { UpdateGroupDto } from '../group/dto/update-group.dto';
 import { GroupEntity } from '../group/entities/group.entity';
 import { UpdateUserDto } from './dto/update-user.dto';
 
-
 @Injectable()
-export class UserService{
+export class UserService {
 
   constructor(private readonly _userDao: UserDao) {
   }
@@ -64,6 +63,18 @@ export class UserService{
             throwError(new UnprocessableEntityException(e.message)),
         ),
         map(_ => new UserEntity(_)),
+      );
+  }
+
+  delete(id: string): Observable<void> {
+    return this._userDao.findByIdAndRemove(id)
+      .pipe(
+        catchError(e => throwError(new NotFoundException(e.message))),
+        flatMap(_ =>
+          !!_ ?
+            of(undefined) :
+            throwError(new NotFoundException(`User with id '${id}' not found`)),
+        ),
       );
   }
 

@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, Param, Put } from '@nestjs/common';
+import { Body, Controller, Get, Post, Param, Put, Delete } from '@nestjs/common';
 import { Observable } from 'rxjs';
 import { UserService } from './user.service';
 import { UserEntity } from './entities/user.entity';
@@ -18,6 +18,7 @@ import {
 import { GroupEntity } from '../group/entities/group.entity';
 import { UpdateGroupDto } from '../group/dto/update-group.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { TestParams } from '../test/validators/test-params';
 
 @ApiUseTags('User')
 @Controller('user')
@@ -64,5 +65,15 @@ export class UserController {
   @Put(':id')
   update(@Param() params: HandlerParams, @Body() updateUserDto: UpdateUserDto): Observable<UserEntity> {
     return this._userService.update(params.id, updateUserDto);
+  }
+
+  @ApiNoContentResponse({ description: 'The user has been successfully deleted' })
+  @ApiNotFoundResponse({ description: 'User with the given "id" doesn\'t exist in the database' })
+  @ApiBadRequestResponse({ description: 'Parameter provided is not good' })
+  @ApiUnprocessableEntityResponse({ description: 'The request can\'t be performed in the database' })
+  @ApiImplicitParam({ name: 'id', description: 'Unique identifier of the user in the database', type: String })
+  @Delete(':id')
+  delete(@Param() params: TestParams): Observable<void> {
+    return this._userService.delete(params.id);
   }
 }

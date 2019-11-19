@@ -8,6 +8,7 @@ import { CreateUserDto } from '../dto/create-user.dto';
 import { Group } from '../../group/interfaces/group.interface';
 import { UpdateGroupDto } from '../../group/dto/update-group.dto';
 import { UpdateUserDto } from '../dto/update-user.dto';
+import { Test } from '../../test/interfaces/test.interface';
 
 @Injectable()
 export class UserDao {
@@ -40,6 +41,13 @@ export class UserDao {
     return from(this._userModel.create(user))
       .pipe(
         map((doc: MongooseDocument) => doc.toJSON()),
+      );
+  }
+
+  findByIdAndRemove(id: string): Observable<User | void> {
+    return from(this._userModel.findByIdAndRemove(id))
+      .pipe(
+        map((doc: MongooseDocument) => !!doc ? doc.toJSON() : undefined),
       );
   }
 }

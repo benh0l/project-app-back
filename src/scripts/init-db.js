@@ -147,6 +147,12 @@ var lessonInsertedIds = db.getCollection('lesson').insertMany([
     "teacherId": responsibleId2,
     "groupId": groupInsertedIds[2],
     "testsId": test3InsertedIds
+  },
+  {
+    "name": "CPOA",
+    "teacherId": responsibleId,
+    "groupId": groupInsertedIds[0],
+    "testsId": []
   }
 ]).insertedIds;
 var gradeInsertedIds = db.getCollection('grade').insertMany([
@@ -247,6 +253,7 @@ for(var i = 0; i < userInsertedIds.length; i++) {
 for(var i = 0; i < groupInsertedIds.length; i++){
   db.getCollection('group').update({'_id': groupInsertedIds[i]}, { $push: {'lessonsId': lessonInsertedIds[i]}})
 }
+db.getCollection('group').update({'_id': groupInsertedIds[0]}, { $push: {'lessonsId': lessonInsertedIds[3]}});
 for(var i = 0; i < 3; i++){
   db.getCollection('test').update({'_id': test1InsertedIds[0]}, { $push: {'gradesId': gradeInsertedIds[i]}});
   db.getCollection('test').update({'_id': test1InsertedIds[1]}, { $push: {'gradesId': gradeInsertedIds[i+3]}});

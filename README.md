@@ -28,47 +28,27 @@
 
 [Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
 
-## Installation
+Développeurs : Thierry Lacoste & Benoît Holzer
 
-```bash
-$ npm install
-```
+## Déployer le projet
 
-## Running the app
+Clonez le projet :
+`git clone https://github.com/benh0l/project-app-back.git`
 
-```bash
-# development
-$ npm run start
+Connectez vous à MongoDB (Mongo Shell ou Robot3T)
+Créez une nouvelle base de données et appelez là "nest" (Le nom est moifiable dans le fichier /config/default.yml)
+Utiliser le script init-db.js qui se trouve dans le dossier /scripts du projet. Ce script permet d'initialiser les données nécessaire à l'application.
 
-# watch mode
-$ npm run start:dev
+Exécutez ensuite ces commandes :
+`$ yarn global add @nestjs/cli
 
-# production mode
-$ npm run start:prod
-```
+$ cd project-app-back/
 
-## Test
+$ yarn install`
 
-```bash
-# unit tests
-$ npm run test
+## Exécuter le projet
 
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
-```
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+Utilisez la commande `yarn run start`pour lancer l'application back-end.
 
 ## License
 

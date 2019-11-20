@@ -40,11 +40,11 @@ Créez une nouvelle base de données et appelez là "nest" (Le nom est moifiable
 Utiliser le script init-db.js qui se trouve dans le dossier /scripts du projet. Ce script permet d'initialiser les données nécessaire à l'application.
 
 Exécutez ensuite ces commandes :
-`$ yarn global add @nestjs/cli
+`$ yarn global add @nestjs/cli`
 
-$ cd project-app-back/
+`$ cd project-app-back/`
 
-$ yarn install`
+`$ yarn install`
 
 ## Exécuter le projet
 

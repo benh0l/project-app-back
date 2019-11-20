@@ -21,6 +21,13 @@ export class GradeDao {
       );
   }
 
+  findOne(id: string): Observable<Grade | void> {
+    return from(this._gradeModel.findById(id))
+      .pipe(
+        map((doc: MongooseDocument) => !!doc ? doc.toJSON() : undefined),
+      );
+  }
+
   findByUserId(id: string): Observable<Grade[] | void> {
     return from(this._gradeModel.find({userId: id}))
       .pipe(

@@ -34,6 +34,15 @@ export class GradeController {
     return this._gradeService.findAll();
   }
 
+  @ApiOkResponse({ description: 'Returns a grade', type: GradeEntity})
+  @ApiNoContentResponse({ description: 'This grade doesn\' exist in database' })
+  @ApiBadRequestResponse({ description: 'Parameter provided is not good' })
+  @ApiImplicitParam({ name: 'id', description: 'Unique identifier of the grade in the database', type: String })
+  @Get(':id')
+  findOne(@Param() params: GradeParams): Observable<GradeEntity | void> {
+    return this._gradeService.findOne(params.id);
+  }
+
   @ApiOkResponse({ description: 'Returns all grade of a test', type: GradeEntity, isArray: true})
   @ApiNoContentResponse({ description: 'This test id doesn\'t exist in database' })
   @ApiBadRequestResponse({ description: 'Parameter provided is not good' })

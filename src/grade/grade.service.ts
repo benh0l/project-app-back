@@ -5,6 +5,7 @@ import { GradeEntity } from './entities/grade.entity';
 import { catchError, find, flatMap, map } from 'rxjs/operators';
 import { Observable, of, throwError } from 'rxjs';
 import { UpdateGradeDto } from './dto/update-grade-dto';
+import { GroupEntity } from '../group/entities/group.entity';
 
 @Injectable()
 export class GradeService {
@@ -39,6 +40,18 @@ export class GradeService {
     return this._gradeDao.find()
       .pipe(
         map(_ => !!_ ? _.map(__ => new GradeEntity(__)) : undefined),
+      );
+  }
+
+  findOne(id: string): Observable<GradeEntity> {
+    return this._gradeDao.findOne(id)
+      .pipe(
+        catchError(e => throwError(new UnprocessableEntityException(e.message))),
+        flatMap(_ =>
+          !!_ ?
+            of(new GradeEntity(_)) :
+            throwError(new NotFoundException(`Grade with id '${id}' not found`)),
+        ),
       );
   }
 

@@ -53,6 +53,9 @@ Exécutez ensuite ces commandes :
 
 Utilisez la commande `yarn run start`pour lancer l'application back-end.
 
+Afin d'utiliser l'application correctement n'oubliez pas de déployer la partie front-end : 
+https://github.com/benh0l/my-app-front
+
 ## License
 
   Nest is [MIT licensed](LICENSE).

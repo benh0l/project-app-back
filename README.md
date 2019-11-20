@@ -30,6 +30,8 @@
 
 Développeurs : Thierry Lacoste & Benoît Holzer
 
+Lien vers le front-end : https://github.com/benh0l/my-app-front/
+
 ## Déployer le projet
 
 Clonez le projet :
